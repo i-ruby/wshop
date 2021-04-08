@@ -39,10 +39,15 @@
 		</dependency>
 		<dependency>
 			<groupId>org.apache.shiro</groupId>
-<!--			<artifactId>shiro-spring</artifactId>-->
 			<artifactId>shiro-spring-boot-web-starter</artifactId>
 			<version>1.7.1</version>
 		</dependency>
+		<dependency>
+			<groupId>com.alibaba</groupId>
+			<artifactId>fastjson</artifactId>
+			<version>1.2.76</version>
+		</dependency>
+
 
 
 		<dependency>
