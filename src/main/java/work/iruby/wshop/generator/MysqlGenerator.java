@@ -14,9 +14,6 @@ import com.baomidou.mybatisplus.generator.config.rules.NamingStrategy;
  */
 public class MysqlGenerator {
 
-    /**
-     * RUN THIS
-     */
     public static void main(String[] args) {
         // 代码生成器
         AutoGenerator mpg = new AutoGenerator();
