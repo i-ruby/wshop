@@ -18,7 +18,6 @@ public class MyAuthorizingRealm extends AuthorizingRealm {
     @Autowired
     public MyAuthorizingRealm(SmsCodeService smsCodeService) {
         this.smsCodeService = smsCodeService;
-        this.setCredentialsMatcher((token, info) -> token.getCredentials().equals(info.getCredentials()));
     }
 
 
