@@ -3,10 +3,11 @@
         "-//Puppy Crawl//DTD Check Configuration 1.1//EN"
         "http://www.puppycrawl.com/dtds/configuration_1_1.dtd">
 <module name="Checker">
-    <property name="localeLanguage" value="cn"/>
-    <module name="NewlineAtEndOfFile">
-        <property name="lineSeparator" value="lf"/>
-    </module>
+    <property name="localeLanguage" value="en"/>
+    <!--    <module name="RegexpMultiline">-->
+    <!--        <property name="format" value="(?<!\r)\n"/>-->
+    <!--        <property name="message" value="LF line endings are prohibited"/>-->
+    <!--    </module>-->
     <module name="NewlineAtEndOfFile">
         <property name="severity" value="ignore"/>
     </module>
@@ -14,7 +15,6 @@
         <property name="fileExtensions" value="java,xml"/>
     </module>
     <module name="RegexpSingleline">
-        <!-- \s matches whitespace character, $ matches end of line. -->
         <property name="format" value="\s+$"/>
         <property name="message" value="Line has trailing spaces."/>
     </module>
