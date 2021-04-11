@@ -12,6 +12,5 @@ import work.iruby.wshop.entity.WshopUser;
  * @since 2021-04-07
  */
 public interface IWshopUserService extends IService<WshopUser> {
-
-    void createWshopUserIfNotExit(String tel);
+    WshopUser getWshopUserByTel(String tel);
 }
