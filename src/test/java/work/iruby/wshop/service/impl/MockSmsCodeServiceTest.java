@@ -21,7 +21,7 @@ class MockSmsCodeServiceTest {
     @Mock
     private SmsCodeService mockSmsCodeService;
 
-    String right_tel = "18879628733";
+    String right_tel = "13800000000";
 
     @BeforeEach
     void init() {

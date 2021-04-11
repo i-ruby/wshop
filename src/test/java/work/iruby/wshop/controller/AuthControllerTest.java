@@ -23,24 +23,24 @@ class AuthControllerTest {
 
     @BeforeEach
     void init() {
-        url = String.format("http://localhost:%d", port);
+        url = String.format("http://localhost:%d/api/v1", port);
     }
 
     @Test
     void user_login() throws IOException {
         TelAndCode telAndCode = new TelAndCode();
         telAndCode.setTel("18879628733");
-        String code = OkHttpClientUtils.getBody(false, url + "/api/code", telAndCode, null, null);
-        String status = OkHttpClientUtils.getBody(true, url + "/api/status", telAndCode, null, null);
+        String code = OkHttpClientUtils.getBody(false, url + "/code", telAndCode, null, null);
+        String status = OkHttpClientUtils.getBody(true, url + "/status", telAndCode, null, null);
         Assertions.assertTrue(status.contains("false"));
         telAndCode.setCode(code);
-        String cookie = OkHttpClientUtils.getCookie(false, url + "/api/login", telAndCode, null, null);
+        String cookie = OkHttpClientUtils.getCookie(false, url + "/login", telAndCode, null, null);
         Map<String, String> Heads = new HashMap<>();
         Heads.put("Cookie", cookie);
-        status = OkHttpClientUtils.getBody(true, url + "/api/status", telAndCode, Heads, null);
+        status = OkHttpClientUtils.getBody(true, url + "/status", telAndCode, Heads, null);
         Assertions.assertTrue(status.contains("true"));
-        OkHttpClientUtils.getBody(true, url + "/api/logout", telAndCode, Heads, null);
-        status = OkHttpClientUtils.getBody(true, url + "/api/status", telAndCode, Heads, null);
+        OkHttpClientUtils.getBody(true, url + "/logout", telAndCode, Heads, null);
+        status = OkHttpClientUtils.getBody(true, url + "/status", telAndCode, Heads, null);
         Assertions.assertTrue(status.contains("true"));
 
     }

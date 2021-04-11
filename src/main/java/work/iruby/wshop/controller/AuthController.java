@@ -16,7 +16,7 @@ import work.iruby.wshop.service.UserContext;
 import work.iruby.wshop.service.impl.MockSmsCodeService;
 
 @RestController
-@RequestMapping("/api")
+@RequestMapping("/api/v1")
 public class AuthController {
 
     private final SmsCodeService smsCodeService;
