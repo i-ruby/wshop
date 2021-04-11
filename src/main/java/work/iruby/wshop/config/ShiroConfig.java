@@ -49,12 +49,10 @@ public class ShiroConfig implements WebMvcConfigurer {
     public ShiroFilterFactoryBean shiroFilterFactoryBean(DefaultWebSecurityManager securityManager) {
         ShiroFilterFactoryBean shiroFilterFactoryBean = new ShiroFilterFactoryBean();
         Map<String, String> filter = new HashMap<>();
-        filter.put("/", "anon");
         filter.put("/api/code", "anon");
         filter.put("/api/login", "anon");
-        filter.put("/api/test", "anon");
-        filter.put("/api/user", "user");
-        shiroFilterFactoryBean.setLoginUrl("/");
+        filter.put("/api/status", "anon");
+        filter.put("/api/logout", "user");
         shiroFilterFactoryBean.setSecurityManager(securityManager);
         shiroFilterFactoryBean.setFilterChainDefinitionMap(filter);
         return shiroFilterFactoryBean;

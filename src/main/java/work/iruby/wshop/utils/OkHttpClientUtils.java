@@ -1,6 +1,7 @@
 package work.iruby.wshop.utils;
 
 import com.alibaba.fastjson.JSON;
+import edu.umd.cs.findbugs.annotations.SuppressFBWarnings;
 import okhttp3.MediaType;
 import okhttp3.OkHttpClient;
 import okhttp3.Request;
@@ -30,6 +31,7 @@ public class OkHttpClientUtils {
         }
     }
 
+    @SuppressFBWarnings(value = "NP_NULL_ON_SOME_PATH_FROM_RETURN_VALUE")
     public static String getBody(Boolean isGet, String url, String json, Map<String, String> addHeads, String[] RemoveHeads) throws IOException {
         RequestBody body = RequestBody.create(json, MEDIA_TYPE_JSON);
         Request.Builder builder = new Request.Builder().url(url);

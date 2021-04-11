@@ -38,6 +38,11 @@ public class AuthController {
         SecurityUtils.getSubject().login(token);
     }
 
+    @GetMapping("/logout")
+    public void logout() {
+        SecurityUtils.getSubject().logout();
+    }
+
     @GetMapping("/status")
     public LoginResponse status() {
         WshopUser currentUser = UserContext.getCurrentUser();

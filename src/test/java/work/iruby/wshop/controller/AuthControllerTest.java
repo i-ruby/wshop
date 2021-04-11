@@ -39,6 +39,9 @@ class AuthControllerTest {
         Heads.put("Cookie", cookie);
         status = OkHttpClientUtils.getBody(true, url + "/api/status", telAndCode, Heads, null);
         Assertions.assertTrue(status.contains("true"));
+        OkHttpClientUtils.getBody(true, url + "/api/logout", telAndCode, Heads, null);
+        status = OkHttpClientUtils.getBody(true, url + "/api/status", telAndCode, Heads, null);
+        Assertions.assertTrue(status.contains("true"));
 
     }
 
