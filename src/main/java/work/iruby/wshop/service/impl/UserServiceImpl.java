@@ -18,7 +18,7 @@ import work.iruby.wshop.service.IUserService;
 @Service
 public class UserServiceImpl extends ServiceImpl<UserMapper, User> implements IUserService {
     @Override
-    public User getWshopUserByTel(String tel) {
+    public User getUserByTel(String tel) {
         return getOne(new QueryWrapper<User>().eq("tel", tel));
     }
 }

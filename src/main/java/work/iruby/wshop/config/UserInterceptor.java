@@ -24,7 +24,7 @@ public class UserInterceptor implements HandlerInterceptor {
     public boolean preHandle(HttpServletRequest request, HttpServletResponse response, Object handler) throws Exception {
         Object tel = SecurityUtils.getSubject().getPrincipal();
         if (tel != null) {
-            User user = userService.getWshopUserByTel(tel.toString());
+            User user = userService.getUserByTel(tel.toString());
             UserContext.setCurrentUser(user);
         }
         return true;
