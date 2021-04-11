@@ -38,7 +38,7 @@ public class AuthController {
         SecurityUtils.getSubject().login(token);
     }
 
-    @GetMapping("/logout")
+    @PostMapping("/logout")
     public void logout() {
         SecurityUtils.getSubject().logout();
     }

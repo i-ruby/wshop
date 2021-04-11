@@ -1,8 +1,8 @@
 package work.iruby.wshop.controller;
 
 
-import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RestController;
 
 /**
  * <p>
@@ -12,7 +12,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
  * @author iruby
  * @since 2021-04-11
  */
-@Controller
+@RestController
 @RequestMapping("/api/v1")
 public class ShoppingCartController {
 
