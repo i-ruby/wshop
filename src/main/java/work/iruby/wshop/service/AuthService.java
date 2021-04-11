@@ -5,11 +5,11 @@ import org.springframework.stereotype.Service;
 
 @Service
 public class AuthService {
-    private final IWshopUserService wshopUserService;
+    private final IUserService userService;
 
     @Autowired
-    public AuthService(IWshopUserService wshopUserService) {
-        this.wshopUserService = wshopUserService;
+    public AuthService(IUserService userService) {
+        this.userService = userService;
     }
 
 }

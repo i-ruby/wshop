@@ -10,7 +10,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 import work.iruby.wshop.entity.LoginResponse;
 import work.iruby.wshop.entity.TelAndCode;
-import work.iruby.wshop.entity.WshopUser;
+import work.iruby.wshop.entity.User;
 import work.iruby.wshop.service.SmsCodeService;
 import work.iruby.wshop.service.UserContext;
 import work.iruby.wshop.service.impl.MockSmsCodeService;
@@ -45,7 +45,7 @@ public class AuthController {
 
     @GetMapping("/status")
     public LoginResponse status() {
-        WshopUser currentUser = UserContext.getCurrentUser();
+        User currentUser = UserContext.getCurrentUser();
         return new LoginResponse(currentUser != null, currentUser);
     }
 

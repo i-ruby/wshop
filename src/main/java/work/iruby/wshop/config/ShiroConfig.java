@@ -10,7 +10,7 @@ import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.web.servlet.config.annotation.InterceptorRegistry;
 import org.springframework.web.servlet.config.annotation.WebMvcConfigurer;
-import work.iruby.wshop.service.IWshopUserService;
+import work.iruby.wshop.service.IUserService;
 import work.iruby.wshop.service.impl.MockSmsCodeService;
 
 import java.util.HashMap;
@@ -19,16 +19,16 @@ import java.util.Map;
 @Configuration
 public class ShiroConfig implements WebMvcConfigurer {
 
-    IWshopUserService wshopUserService;
+    IUserService userService;
 
     @Autowired
-    public ShiroConfig(IWshopUserService wshopUserService) {
-        this.wshopUserService = wshopUserService;
+    public ShiroConfig(IUserService userService) {
+        this.userService = userService;
     }
 
     @Override
     public void addInterceptors(InterceptorRegistry registry) {
-        registry.addInterceptor(new UserInterceptor(wshopUserService));
+        registry.addInterceptor(new UserInterceptor(userService));
     }
 
     @Bean

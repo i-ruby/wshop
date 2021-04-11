@@ -1,15 +1,15 @@
 package work.iruby.wshop.service;
 
-import work.iruby.wshop.entity.WshopUser;
+import work.iruby.wshop.entity.User;
 
 public class UserContext {
-    private static ThreadLocal<WshopUser> currentUser = new ThreadLocal<>();
+    private static ThreadLocal<User> currentUser = new ThreadLocal<>();
 
-    public static WshopUser getCurrentUser() {
+    public static User getCurrentUser() {
         return currentUser.get();
     }
 
-    public static void setCurrentUser(WshopUser wshopUser) {
-        currentUser.set(wshopUser);
+    public static void setCurrentUser(User user) {
+        currentUser.set(user);
     }
 }

@@ -9,9 +9,8 @@ import work.iruby.wshop.entity.User;
  * </p>
  *
  * @author iruby
- * @since 2021-04-07
+ * @since 2021-04-11
  */
-
-public interface WshopUserMapper extends BaseMapper<User> {
+public interface UserMapper extends BaseMapper<User> {
 
 }

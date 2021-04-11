@@ -3,8 +3,8 @@ package work.iruby.wshop.service.impl;
 import com.baomidou.mybatisplus.core.conditions.query.QueryWrapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
-import work.iruby.wshop.entity.WshopUser;
-import work.iruby.wshop.service.IWshopUserService;
+import work.iruby.wshop.entity.User;
+import work.iruby.wshop.service.IUserService;
 import work.iruby.wshop.service.SmsCodeService;
 
 import java.util.Map;
@@ -13,21 +13,21 @@ import java.util.concurrent.ConcurrentHashMap;
 @Service
 public class MockSmsCodeService implements SmsCodeService {
     Map<String, String> telAndCode = new ConcurrentHashMap<>();
-    IWshopUserService wshopUserService;
+    IUserService userService;
 
     @Autowired
-    public MockSmsCodeService(IWshopUserService wshopUserService) {
-        this.wshopUserService = wshopUserService;
+    public MockSmsCodeService(IUserService userService) {
+        this.userService = userService;
     }
 
     @Override
     public String sendSmsCode(String tel) {
 
-        WshopUser wshopUser = wshopUserService.getOne(new QueryWrapper<WshopUser>().eq("user_tel", tel));
-        if (wshopUser == null) {
-            wshopUser = new WshopUser();
-            wshopUser.setUserTel(tel);
-            wshopUserService.save(wshopUser);
+        User user = userService.getOne(new QueryWrapper<User>().eq("tel", tel));
+        if (user == null) {
+            user = new User();
+            user.setTel(tel);
+            userService.save(user);
         }
         String code = "000000";
         telAndCode.put(tel, code);

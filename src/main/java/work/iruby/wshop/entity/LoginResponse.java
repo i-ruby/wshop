@@ -7,5 +7,5 @@ import lombok.Data;
 @Data
 public class LoginResponse {
     private Boolean login;
-    private WshopUser user;
+    private User user;
 }

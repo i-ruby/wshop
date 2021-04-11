@@ -1,7 +1,7 @@
 package work.iruby.wshop.mapper;
 
 import com.baomidou.mybatisplus.core.mapper.BaseMapper;
-import work.iruby.wshop.entity.User;
+import work.iruby.wshop.entity.Goods;
 
 /**
  * <p>
@@ -9,9 +9,8 @@ import work.iruby.wshop.entity.User;
  * </p>
  *
  * @author iruby
- * @since 2021-04-07
+ * @since 2021-04-11
  */
-
-public interface WshopUserMapper extends BaseMapper<User> {
+public interface GoodsMapper extends BaseMapper<Goods> {
 
 }
