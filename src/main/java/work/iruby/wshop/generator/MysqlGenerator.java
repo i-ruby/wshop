@@ -52,7 +52,8 @@ public class MysqlGenerator {
         strategy.setSuperEntityClass("work.iruby.wshop.common.BaseEntity");
         strategy.setEntityLombokModel(true);
 
-        strategy.setInclude("user", "goods", "shop", "shopping_cart");
+//        strategy.setInclude("user", "goods", "shop", "shopping_cart");
+        strategy.setInclude("shop");
         strategy.setControllerMappingHyphenStyle(true);
         strategy.setTablePrefix(pc.getModuleName() + "_");
         mpg.setStrategy(strategy);
