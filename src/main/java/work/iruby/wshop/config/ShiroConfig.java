@@ -13,6 +13,7 @@ import org.springframework.web.servlet.config.annotation.WebMvcConfigurer;
 import work.iruby.wshop.service.IUserService;
 import work.iruby.wshop.service.impl.MockSmsCodeService;
 
+import javax.servlet.Filter;
 import java.util.HashMap;
 import java.util.Map;
 
@@ -46,16 +47,19 @@ public class ShiroConfig implements WebMvcConfigurer {
     }
 
     @Bean
-    public ShiroFilterFactoryBean shiroFilterFactoryBean(DefaultWebSecurityManager securityManager) {
+    public ShiroFilterFactoryBean shiroFilterFactoryBean(DefaultWebSecurityManager securityManager, ShiroLoginFilter shiroLoginFilter) {
         ShiroFilterFactoryBean shiroFilterFactoryBean = new ShiroFilterFactoryBean();
-        Map<String, String> filter = new HashMap<>();
-        filter.put("/api/v1/code", "anon");
-        filter.put("/api/v1/login", "anon");
-        filter.put("/api/v1/status", "anon");
-//        filter.put("/api/logout", "user");
-        filter.put("/**", "user");
+        Map<String, String> pattern = new HashMap<>();
+        pattern.put("/api/v1/code", "anon");
+        pattern.put("/api/v1/login", "anon");
+        pattern.put("/api/v1/status", "anon");
+        pattern.put("/**", "authc");
+        Map<String, Filter> filterMap = new HashMap<>();
+        filterMap.put("shiroLoginFilter", shiroLoginFilter);
+        shiroFilterFactoryBean.setUnauthorizedUrl(null);
         shiroFilterFactoryBean.setSecurityManager(securityManager);
-        shiroFilterFactoryBean.setFilterChainDefinitionMap(filter);
+        shiroFilterFactoryBean.setFilterChainDefinitionMap(pattern);
+        shiroFilterFactoryBean.setFilters(filterMap);
         return shiroFilterFactoryBean;
     }
 
