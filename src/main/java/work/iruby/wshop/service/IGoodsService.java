@@ -19,11 +19,11 @@ public interface IGoodsService extends IService<Goods> {
 
     DataMessage<Goods> creatGood(Goods goods);
 
-    DataMessage<Goods> deleteGood(Long id);
+    DataMessage<Goods> deleteGoodByGoodId(Long id);
 
-    DataMessage<Goods> updateGood(Goods goods);
+    DataMessage<Goods> updateGoodByGoodId(Long id, Goods goods);
 
-    DataMessage<Goods> getPageGoods(int pageNum, int pageSize, int shopId);
+    PageMessage<List<Goods>> getPageGoods(Integer pageNum, Integer pageSize, Integer shopId);
 
-    PageMessage<List<Goods>> getGoodByGoodId(Long id);
+    DataMessage<Goods> getGoodByGoodId(Long id);
 }

@@ -1,11 +1,11 @@
 package work.iruby.wshop.mapper;
 
-import work.iruby.wshop.entity.Shop;
 import com.baomidou.mybatisplus.core.mapper.BaseMapper;
+import work.iruby.wshop.entity.Shop;
 
 /**
  * <p>
- *  Mapper 接口
+ * Mapper 接口
  * </p>
  *
  * @author iruby

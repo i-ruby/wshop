@@ -4,10 +4,11 @@ import lombok.Getter;
 
 @Getter
 public class DataMessage<T> {
-    private String message;
+    private final String message;
     private final T data;
 
     private DataMessage(String message, T data) {
+        this.message = message;
         this.data = data;
     }
 

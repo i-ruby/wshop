@@ -1,11 +1,11 @@
 package work.iruby.wshop.service;
 
-import work.iruby.wshop.entity.Shop;
 import com.baomidou.mybatisplus.extension.service.IService;
+import work.iruby.wshop.entity.Shop;
 
 /**
  * <p>
- *  服务类
+ * 服务类
  * </p>
  *
  * @author iruby

@@ -44,23 +44,23 @@ public class GoodsController {
 
     @DeleteMapping("/goods/{id}")
     public DataMessage<Goods> deleteGood(@PathVariable(value = "id") Long id) {
-        return goodsService.deleteGood(id);
+        return goodsService.deleteGoodByGoodId(id);
     }
 
-    @PatchMapping("/goods")
-    public DataMessage<Goods> updateGood(@RequestBody Goods goods) {
-        return goodsService.updateGood(goods);
+    @PatchMapping("/goods/{id}")
+    public DataMessage<Goods> updateGood(@PathVariable(value = "id") Long id, @RequestBody Goods goods) {
+        return goodsService.updateGoodByGoodId(id, goods);
     }
 
     @GetMapping("/goods")
-    public DataMessage<Goods> getPageGoods(@RequestParam(name = "pageNum") int pageNum,
-                                           @RequestParam(name = "pageSize") int pageSize,
-                                           @RequestParam(name = "shopId", required = false) int shopId) {
+    public PageMessage<List<Goods>> getPageGoods(@RequestParam(name = "pageNum") Integer pageNum,
+                                                 @RequestParam(name = "pageSize") Integer pageSize,
+                                                 @RequestParam(name = "shopId", required = false) Integer shopId) {
         return goodsService.getPageGoods(pageNum, pageSize, shopId);
     }
 
     @GetMapping("/goods/{id}")
-    public PageMessage<List<Goods>> getGoodByGoodId(@PathVariable(value = "id") Long id) {
+    public DataMessage<Goods> getGoodByGoodId(@PathVariable(value = "id") Long id) {
         return goodsService.getGoodByGoodId(id);
     }
 
