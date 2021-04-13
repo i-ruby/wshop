@@ -9,6 +9,7 @@ import okhttp3.RequestBody;
 import okhttp3.Response;
 
 import java.io.IOException;
+import java.util.HashMap;
 import java.util.Map;
 import java.util.Objects;
 
@@ -17,14 +18,15 @@ public class OkHttpClientUtils {
     private OkHttpClientUtils() {
     }
 
-    private static final OkHttpClient client = new OkHttpClient();
+    private static final OkHttpClient client = new OkHttpClient.Builder()
+            .addInterceptor(new LoggingInterceptor()).build();
 
     private static final MediaType MEDIA_TYPE_JSON = MediaType.get("application/json; charset=utf-8");
 
-    public static String getCookie(Boolean isGet, String url, String json, Map<String, String> addHeads, String[] RemoveHeads) throws IOException {
+    public static String getCookie(String method, String url, String json, Map<String, String> heads) throws IOException {
         RequestBody body = RequestBody.create(json, MEDIA_TYPE_JSON);
         Request.Builder builder = new Request.Builder().url(url);
-        requestBuilderHandle(isGet, addHeads, RemoveHeads, body, builder);
+        requestBuilderHandle(method, heads, body, builder);
         Request request = builder.build();
         try (Response response = client.newCall(request).execute()) {
             return response.header("Set-Cookie");
@@ -32,37 +34,65 @@ public class OkHttpClientUtils {
     }
 
     @SuppressFBWarnings(value = "NP_NULL_ON_SOME_PATH_FROM_RETURN_VALUE")
-    public static String getBody(Boolean isGet, String url, String json, Map<String, String> addHeads, String[] RemoveHeads) throws IOException {
+    public static String getBody(String method, String url, String json, Map<String, String> heads) throws IOException {
         RequestBody body = RequestBody.create(json, MEDIA_TYPE_JSON);
         Request.Builder builder = new Request.Builder().url(url);
-        requestBuilderHandle(isGet, addHeads, RemoveHeads, body, builder);
+
+        requestBuilderHandle(method, heads, body, builder);
         Request request = builder.build();
         try (Response response = client.newCall(request).execute()) {
             return Objects.requireNonNull(response.body()).string();
         }
     }
 
-    private static void requestBuilderHandle(Boolean isGet, Map<String, String> addHeads, String[] RemoveHeads, RequestBody body, Request.Builder builder) {
-        if (!isGet) {
-            builder.post(body);
+    private static void requestBuilderHandle(String method, Map<String, String> heads, RequestBody body, Request.Builder builder) {
+        if (method == null) {
+            builder.get();
+        } else {
+            switch (method.toLowerCase()) {
+                case "post":
+                    builder.post(body);
+                    break;
+                case "delete":
+                    builder.delete(body);
+                    break;
+                case "patch":
+                    builder.patch(body);
+                    break;
+                case "head":
+                    builder.head();
+                    break;
+                case "put":
+                    builder.put(body);
+                    break;
+                default:
+                    builder.get();
+                    break;
+            }
         }
-        if (addHeads != null) {
-            for (Map.Entry<String, String> entry : addHeads.entrySet()) {
+
+        if (heads != null && heads.size() != 0) {
+            for (Map.Entry<String, String> entry : heads.entrySet()) {
                 builder.addHeader(entry.getKey(), entry.getValue());
             }
         }
-        if (RemoveHeads != null) {
-            for (String removeHead : RemoveHeads) {
-                builder.removeHeader(removeHead);
-            }
-        }
     }
 
-    public static String getCookie(Boolean isGet, String url, Object obj, Map<String, String> addHeads, String[] RemoveHeads) throws IOException {
-        return getCookie(isGet, url, JSON.toJSONString(obj), addHeads, RemoveHeads);
+    public static String getCookie(String method, String url, Object obj, Map<String, String> heads) throws IOException {
+        return getCookie(method, url, JSON.toJSONString(obj), heads);
     }
 
-    public static String getBody(Boolean isGet, String url, Object obj, Map<String, String> addHeads, String[] RemoveHeads) throws IOException {
-        return getBody(isGet, url, JSON.toJSONString(obj), addHeads, RemoveHeads);
+    public static String getBody(String method, String url, Object obj, Map<String, String> heads) throws IOException {
+        return getBody(method, url, JSON.toJSONString(obj), heads);
+    }
+
+    public static String getBody(String method, String url, Object obj, String cookie) throws IOException {
+        Map<String, String> Heads = new HashMap<>();
+        Heads.put("Cookie", cookie);
+        return getBody(method, url, obj, Heads);
+    }
+
+    public static String getBody(String method, String url, Object obj) throws IOException {
+        return getBody(method, url, obj, (Map<String, String>) null);
     }
 }

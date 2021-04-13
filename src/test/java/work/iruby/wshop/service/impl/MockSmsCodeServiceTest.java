@@ -1,13 +1,12 @@
 package work.iruby.wshop.service.impl;
 
-import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
+import org.mockito.InjectMocks;
 import org.mockito.Mock;
 import org.mockito.Mockito;
 import org.mockito.junit.jupiter.MockitoExtension;
 import work.iruby.wshop.entity.User;
-import work.iruby.wshop.service.SmsCodeService;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertNull;
@@ -18,15 +17,10 @@ class MockSmsCodeServiceTest {
     @Mock
     private UserServiceImpl userService;
 
-    @Mock
-    private SmsCodeService mockSmsCodeService;
+    @InjectMocks
+    private MockSmsCodeService mockSmsCodeService;
 
-    String right_tel = "13800000000";
-
-    @BeforeEach
-    void init() {
-        mockSmsCodeService = new MockSmsCodeService(userService);
-    }
+    private final String right_tel = "13800000000";
 
     @Test
     void sendSmsCode() {

@@ -15,6 +15,6 @@ public class ShiroLoginFilter extends FormAuthenticationFilter {
         httpServletResponse.setCharacterEncoding("utf-8");
         httpServletResponse.setContentType("application/json");
         httpServletResponse.setStatus(HttpServletResponse.SC_UNAUTHORIZED);
-        return false;
+        return true;
     }
 }
