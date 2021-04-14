@@ -39,7 +39,7 @@ public class GoodsServiceImpl extends ServiceImpl<GoodsMapper, Goods> implements
 
     @Override
     public DataMessage<Goods> creatGood(Goods goods) {
-        checkCurrentUserPermission(goods.getId(), "Forbidden 用户尝试创建非自己管理店铺的商品");
+        checkCurrentUserPermission(goods, "Forbidden 用户尝试创建非自己管理店铺的商品");
         goods.setId(null);
         goods.setStatus(DataStatus.OK.value());
         goods.setCreatedAt(LocalDateTime.now());
@@ -50,7 +50,8 @@ public class GoodsServiceImpl extends ServiceImpl<GoodsMapper, Goods> implements
 
     @Override
     public DataMessage<Goods> deleteGoodByGoodId(Long id) {
-        Goods goods = checkCurrentUserPermission(id, "Forbidden 用户尝试删除非自己管理店铺的商品");
+        Goods goods = checkGoodsExited(id, "404 Not Found 若商品未找到");
+        checkCurrentUserPermission(goods, "Forbidden 用户尝试删除非自己管理店铺的商品");
         goods.setStatus(DataStatus.DELETED.value());
         updateById(goods);
         return DataMessage.of(getById(id));
@@ -58,7 +59,8 @@ public class GoodsServiceImpl extends ServiceImpl<GoodsMapper, Goods> implements
 
     @Override
     public DataMessage<Goods> updateGoodByGoodId(Long id, Goods goods) {
-        checkCurrentUserPermission(id, "Forbidden 用户尝试删除非自己管理店铺的商品");
+        checkGoodsExited(id, "404 Not Found 若商品未找到");
+        checkCurrentUserPermission(goods, "Forbidden 用户尝试删除非自己管理店铺的商品");
         goods.setId(id);
         goods.setCreatedAt(null);
         goods.setUpdatedAt(LocalDateTime.now());
@@ -100,12 +102,10 @@ public class GoodsServiceImpl extends ServiceImpl<GoodsMapper, Goods> implements
         }
     }
 
-    private Goods checkCurrentUserPermission(Long goodsId, String msg) {
-        Goods goods = checkGoodsExited(goodsId, "商品未找到");
+    private void checkCurrentUserPermission(Goods goods, String msg) {
         Shop shop = shopService.getById(goods.getShopId());
         if (shop == null || DataStatus.DELETED.value().equals(shop.getStatus()) || !Objects.equals(shop.getOwnerUserId(), UserContext.getCurrentUser().getId())) {
             throw new RuntimeException(msg);
         }
-        return goods;
     }
 }

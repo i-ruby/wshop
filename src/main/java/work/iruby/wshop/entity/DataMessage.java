@@ -1,16 +1,15 @@
 package work.iruby.wshop.entity;
 
-import lombok.Getter;
+import lombok.AllArgsConstructor;
+import lombok.Data;
+import lombok.NoArgsConstructor;
 
-@Getter
+@Data
+@NoArgsConstructor
+@AllArgsConstructor
 public class DataMessage<T> {
-    private final String message;
-    private final T data;
-
-    private DataMessage(String message, T data) {
-        this.message = message;
-        this.data = data;
-    }
+    private String message;
+    private T data;
 
     public static <T> DataMessage<T> of(String message, T data) {
         return new DataMessage<T>(message, data);
@@ -19,4 +18,5 @@ public class DataMessage<T> {
     public static <T> DataMessage<T> of(T data) {
         return new DataMessage<T>(null, data);
     }
+
 }

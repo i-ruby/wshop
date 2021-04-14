@@ -27,30 +27,35 @@ class GoodsControllerTest extends BaseIntegrationTest {
         goods.setShopId(1L);
         // 插入
         String body = OkHttpClientUtils.getBody("post", url + "/goods", goods, cookie);
-        DataMessage<Goods> message = JSON.parseObject(body, new TypeReference<DataMessage<Goods>>() {
-        });
-        Assertions.assertNotNull(message.getData().getId());
+        Goods dbGoods = JSON.parseObject(body, new TypeReference<DataMessage<Goods>>() {
+        }).getData();
+        Assertions.assertNotNull(dbGoods.getId());
+
         // 查询单个
-        body = OkHttpClientUtils.getBody("patch", url + "/goods/" + message.getData().getId(), goods, cookie);
-        message = JSON.parseObject(body, new TypeReference<DataMessage<Goods>>() {
-        });
-        Goods DbGoods = message.getData();
-        DbGoods.setCreatedAt(null);
-        DbGoods.setUpdatedAt(null);
-        Assertions.assertEquals(DbGoods, goods);
+        body = OkHttpClientUtils.getBody("patch", url + "/goods/" + dbGoods.getId(), dbGoods, cookie);
+        dbGoods = JSON.parseObject(body, new TypeReference<DataMessage<Goods>>() {
+        }).getData();
+        goods.setId(dbGoods.getId());
+        goods.setStatus(dbGoods.getStatus());
+        goods.setCreatedAt(dbGoods.getCreatedAt());
+        dbGoods.setUpdatedAt(null);
+        Assertions.assertEquals(dbGoods, goods);
+
         // 更新
-        goods.setName("new name");
-        goods.setDescription("new des");
-        goods.setDetails("new det");
-        goods.setImgUrl("new url");
-        goods.setPrice(10L);
-        goods.setStock(10);
-        body = OkHttpClientUtils.getBody("patch", url + "/goods/" + message.getData().getId(), goods, cookie);
-        message = JSON.parseObject(body, new TypeReference<DataMessage<Goods>>() {
-        });
-        DbGoods = message.getData();
-        DbGoods.setUpdatedAt(null);
-        Assertions.assertEquals(DbGoods, goods);
+        dbGoods.setName("new name");
+        dbGoods.setDescription("new des");
+        dbGoods.setDetails("new det");
+        dbGoods.setImgUrl("new url");
+        dbGoods.setPrice(10L);
+        dbGoods.setStock(10);
+        goods = dbGoods;
+        body = OkHttpClientUtils.getBody("patch", url + "/goods/" + dbGoods.getId(), dbGoods, cookie);
+        dbGoods = JSON.parseObject(body, new TypeReference<DataMessage<Goods>>() {
+        }).getData();
+        goods.setUpdatedAt(null);
+        dbGoods.setUpdatedAt(null);
+        Assertions.assertEquals(dbGoods, goods);
+
         // 查询所有
         body = OkHttpClientUtils.getBody("get", url + "/goods?pageNum=1&pageSize=4", null, cookie);
         DataMessage<List<Goods>> pageDataMessage = JSON.parseObject(body, new TypeReference<DataMessage<List<Goods>>>() {
@@ -67,10 +72,10 @@ class GoodsControllerTest extends BaseIntegrationTest {
             }
         }
         // 删除
-        body = OkHttpClientUtils.getBody("delete", url + "/goods/" + message.getData().getId(), null, cookie);
-        message = JSON.parseObject(body, new TypeReference<DataMessage<Goods>>() {
-        });
-        Assertions.assertEquals(message.getData().getStatus(), DataStatus.DELETED.value());
+        body = OkHttpClientUtils.getBody("delete", url + "/goods/" + dbGoods.getId(), null, cookie);
+        dbGoods = JSON.parseObject(body, new TypeReference<DataMessage<Goods>>() {
+        }).getData();
+        Assertions.assertEquals(dbGoods.getStatus(), DataStatus.DELETED.value());
     }
 
 }

@@ -2,9 +2,12 @@ package work.iruby.wshop.entity;
 
 import lombok.AllArgsConstructor;
 import lombok.Data;
+import lombok.NoArgsConstructor;
 
-@AllArgsConstructor
+
 @Data
+@NoArgsConstructor
+@AllArgsConstructor
 public class LoginResponse {
     private Boolean login;
     private User user;

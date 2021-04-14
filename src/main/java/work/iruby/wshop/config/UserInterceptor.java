@@ -1,8 +1,8 @@
 package work.iruby.wshop.config;
 
 import org.apache.shiro.SecurityUtils;
-import org.apache.shiro.authz.UnauthenticatedException;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Component;
 import org.springframework.web.servlet.HandlerInterceptor;
 import org.springframework.web.servlet.ModelAndView;
 import work.iruby.wshop.entity.User;
@@ -12,6 +12,7 @@ import work.iruby.wshop.service.UserContext;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
+@Component
 public class UserInterceptor implements HandlerInterceptor {
 
     IUserService userService;
@@ -27,8 +28,6 @@ public class UserInterceptor implements HandlerInterceptor {
         if (tel != null) {
             User user = userService.getUserByTel(tel.toString());
             UserContext.setCurrentUser(user);
-        }else {
-            throw new UnauthenticatedException();
         }
         return true;
     }

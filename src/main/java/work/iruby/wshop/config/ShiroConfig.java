@@ -14,7 +14,6 @@ import work.iruby.wshop.service.IUserService;
 import work.iruby.wshop.service.impl.MockSmsCodeService;
 
 import javax.servlet.Filter;
-import java.util.HashMap;
 import java.util.LinkedHashMap;
 import java.util.Map;
 
@@ -22,15 +21,19 @@ import java.util.Map;
 public class ShiroConfig implements WebMvcConfigurer {
 
     IUserService userService;
+    UserInterceptor userInterceptor;
+    ShiroLoginFilter shiroLoginFilter;
 
     @Autowired
-    public ShiroConfig(IUserService userService) {
+    public ShiroConfig(IUserService userService, UserInterceptor userInterceptor, ShiroLoginFilter shiroLoginFilter) {
         this.userService = userService;
+        this.userInterceptor = userInterceptor;
+        this.shiroLoginFilter = shiroLoginFilter;
     }
 
     @Override
     public void addInterceptors(InterceptorRegistry registry) {
-        registry.addInterceptor(new UserInterceptor(userService));
+        registry.addInterceptor(userInterceptor);
     }
 
     @Bean
@@ -54,7 +57,7 @@ public class ShiroConfig implements WebMvcConfigurer {
         pattern.put("/api/v1/code", "anon");
         pattern.put("/api/v1/login", "anon");
         pattern.put("/api/v1/status", "anon");
-        pattern.put("/**", "authc");
+        pattern.put("/**", "user");
         Map<String, Filter> filterMap = new LinkedHashMap<>();
         filterMap.put("shiroLoginFilter", shiroLoginFilter);
         shiroFilterFactoryBean.setSecurityManager(securityManager);
