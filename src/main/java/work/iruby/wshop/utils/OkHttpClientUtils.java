@@ -92,6 +92,10 @@ public class OkHttpClientUtils {
         return getBody(method, url, obj, Heads);
     }
 
+    public static String getBody(String method, String url, String cookie) throws IOException {
+        return getBody(method, url, null, cookie);
+    }
+
     public static String getBody(String method, String url, Object obj) throws IOException {
         return getBody(method, url, obj, (Map<String, String>) null);
     }

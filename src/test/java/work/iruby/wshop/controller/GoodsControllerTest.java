@@ -15,7 +15,7 @@ import java.util.List;
 class GoodsControllerTest extends BaseIntegrationTest {
 
     @Test
-    public void creatGoods() throws IOException {
+    public void apiTest() throws IOException {
         String cookie = loginAndGetCookie();
         Goods goods = new Goods();
         goods.setName("汽水");
@@ -32,7 +32,7 @@ class GoodsControllerTest extends BaseIntegrationTest {
         Assertions.assertNotNull(dbGoods.getId());
 
         // 查询单个
-        body = OkHttpClientUtils.getBody("patch", url + "/goods/" + dbGoods.getId(), dbGoods, cookie);
+        body = OkHttpClientUtils.getBody("get", url + "/goods/" + dbGoods.getId(), dbGoods, cookie);
         dbGoods = JSON.parseObject(body, new TypeReference<DataMessage<Goods>>() {
         }).getData();
         goods.setId(dbGoods.getId());

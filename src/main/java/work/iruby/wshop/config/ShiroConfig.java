@@ -10,7 +10,6 @@ import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.web.servlet.config.annotation.InterceptorRegistry;
 import org.springframework.web.servlet.config.annotation.WebMvcConfigurer;
-import work.iruby.wshop.service.IUserService;
 import work.iruby.wshop.service.impl.MockSmsCodeService;
 
 import javax.servlet.Filter;
@@ -20,15 +19,13 @@ import java.util.Map;
 @Configuration
 public class ShiroConfig implements WebMvcConfigurer {
 
-    IUserService userService;
     UserInterceptor userInterceptor;
-    ShiroLoginFilter shiroLoginFilter;
+    MyShiroLoginFilter myShiroLoginFilter;
 
     @Autowired
-    public ShiroConfig(IUserService userService, UserInterceptor userInterceptor, ShiroLoginFilter shiroLoginFilter) {
-        this.userService = userService;
+    public ShiroConfig(UserInterceptor userInterceptor, MyShiroLoginFilter myShiroLoginFilter) {
         this.userInterceptor = userInterceptor;
-        this.shiroLoginFilter = shiroLoginFilter;
+        this.myShiroLoginFilter = myShiroLoginFilter;
     }
 
     @Override
@@ -51,7 +48,7 @@ public class ShiroConfig implements WebMvcConfigurer {
     }
 
     @Bean
-    public ShiroFilterFactoryBean shiroFilterFactoryBean(DefaultWebSecurityManager securityManager, ShiroLoginFilter shiroLoginFilter) {
+    public ShiroFilterFactoryBean shiroFilterFactoryBean(DefaultWebSecurityManager securityManager) {
         ShiroFilterFactoryBean shiroFilterFactoryBean = new ShiroFilterFactoryBean();
         Map<String, String> pattern = new LinkedHashMap<>();
         pattern.put("/api/v1/code", "anon");
@@ -59,7 +56,7 @@ public class ShiroConfig implements WebMvcConfigurer {
         pattern.put("/api/v1/status", "anon");
         pattern.put("/**", "user");
         Map<String, Filter> filterMap = new LinkedHashMap<>();
-        filterMap.put("shiroLoginFilter", shiroLoginFilter);
+        filterMap.put("myShiroLoginFilter", myShiroLoginFilter);
         shiroFilterFactoryBean.setSecurityManager(securityManager);
         shiroFilterFactoryBean.setFilterChainDefinitionMap(pattern);
         shiroFilterFactoryBean.setFilters(filterMap);
