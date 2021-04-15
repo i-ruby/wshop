@@ -1,12 +1,12 @@
 package work.iruby.wshop.service.impl;
 
 import com.baomidou.mybatisplus.core.conditions.query.QueryWrapper;
+import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
 import com.baomidou.mybatisplus.extension.service.impl.ServiceImpl;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import work.iruby.wshop.entity.DataMessage;
 import work.iruby.wshop.entity.Goods;
-import work.iruby.wshop.entity.GoodsPage;
 import work.iruby.wshop.entity.PageMessage;
 import work.iruby.wshop.entity.Shop;
 import work.iruby.wshop.enumerations.DataStatus;
@@ -70,7 +70,7 @@ public class GoodsServiceImpl extends ServiceImpl<GoodsMapper, Goods> implements
 
     @Override
     public PageMessage<List<Goods>> getPageGoods(Integer pageNum, Integer pageSize, Integer shopId) {
-        GoodsPage<Goods> goodsPage = new GoodsPage<>();
+        Page<Goods> goodsPage = new Page<>();
         goodsPage.setCurrent(pageNum);
         goodsPage.setSize(pageSize);
         QueryWrapper<Goods> queryWrapper;
