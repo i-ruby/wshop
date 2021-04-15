@@ -82,6 +82,14 @@ public class OkHttpClientUtils {
         return getCookie(method, url, JSON.toJSONString(obj), heads);
     }
 
+    public static String getBody(String method, String url, Object obj) throws IOException {
+        return getBody(method, url, obj, (Map<String, String>) null);
+    }
+
+    public static String getBody(String method, String url, String cookie) throws IOException {
+        return getBody(method, url, null, cookie);
+    }
+
     public static String getBody(String method, String url, Object obj, Map<String, String> heads) throws IOException {
         return getBody(method, url, JSON.toJSONString(obj), heads);
     }
@@ -90,13 +98,5 @@ public class OkHttpClientUtils {
         Map<String, String> Heads = new HashMap<>();
         Heads.put("Cookie", cookie);
         return getBody(method, url, obj, Heads);
-    }
-
-    public static String getBody(String method, String url, String cookie) throws IOException {
-        return getBody(method, url, null, cookie);
-    }
-
-    public static String getBody(String method, String url, Object obj) throws IOException {
-        return getBody(method, url, obj, (Map<String, String>) null);
     }
 }

@@ -51,6 +51,7 @@ public class ShiroConfig implements WebMvcConfigurer {
     public ShiroFilterFactoryBean shiroFilterFactoryBean(DefaultWebSecurityManager securityManager) {
         ShiroFilterFactoryBean shiroFilterFactoryBean = new ShiroFilterFactoryBean();
         Map<String, String> pattern = new LinkedHashMap<>();
+        pattern.put("/", "anon");
         pattern.put("/api/v1/code", "anon");
         pattern.put("/api/v1/login", "anon");
         pattern.put("/api/v1/status", "anon");

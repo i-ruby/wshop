@@ -1,7 +1,12 @@
 package work.iruby.wshop.service;
 
 import com.baomidou.mybatisplus.extension.service.IService;
+import work.iruby.wshop.entity.DataMessage;
+import work.iruby.wshop.entity.PageMessage;
 import work.iruby.wshop.entity.ShoppingCart;
+import work.iruby.wshop.entity.ShoppingCartData;
+
+import java.util.List;
 
 /**
  * <p>
@@ -13,4 +18,9 @@ import work.iruby.wshop.entity.ShoppingCart;
  */
 public interface IShoppingCartService extends IService<ShoppingCart> {
 
+    PageMessage<List<ShoppingCartData>> getPageShoppingCartDataCurrentUser(Integer pageNum, Integer pageSize, Long shopId);
+
+    DataMessage<ShoppingCartData> addShoppingCartData(ShoppingCartData shoppingCartData);
+
+    DataMessage<ShoppingCartData> deleteShoppingCartByGoodsId(Long goodsId);
 }

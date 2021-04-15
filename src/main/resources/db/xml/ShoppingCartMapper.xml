@@ -1,0 +1,80 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="work.iruby.wshop.mapper.ShoppingCartMapper">
+    <resultMap id="ShoppingCartData" type="work.iruby.wshop.entity.ShoppingCartData">
+        <id property="id" column="scs_id"/>
+        <association property="shop" columnPrefix="scs_" javaType="work.iruby.wshop.entity.Shop">
+            <id property="id" column="id"/>
+            <result property="name" column="name"/>
+            <result property="description" column="description"/>
+            <result property="imgUrl" column="img_url"/>
+            <result property="ownerUserId" column="owner_user_id"/>
+            <result property="updatedAt" column="updated_at"/>
+            <result property="createdAt" column="created_at"/>
+        </association>
+        <collection property="goods" columnPrefix="scg_" ofType="work.iruby.wshop.entity.ShoppingCartGoods">
+            <id property="id" column="id"/>
+            <result property="name" column="name"/>
+            <result property="description" column="description"/>
+            <result property="details" column="details"/>
+            <result property="imgUrl" column="img_url"/>
+            <result property="price" column="price"/>
+            <result property="number" column="number"/>
+            <result property="updatedAt" column="updated_at"/>
+            <result property="createdAt" column="created_at"/>
+        </collection>
+    </resultMap>
+    <select id="getPageShoppingCartData" resultMap="ShoppingCartData">
+        select s.id as scs_id,
+        s.name as scs_name,
+        s.description as scs_description,
+        s.img_url as scs_img_url,
+        s.owner_user_id as scs_owner_user_id,
+        s.created_at as scs_created_at,
+        s.updated_at as scs_updated_at,
+        g.id as scg_id,
+        g.name as scg_name,
+        g.description as scg_description,
+        g.details as scg_details,
+        g.img_url as scg_img_url,
+        g.price as scg_price,
+        g.created_at as scg_created_at,
+        g.updated_at as scg_updated_at,
+        sc.number as scg_number
+        from (select sc.shop_id
+        from shopping_cart as sc
+        <where>
+            <if test="userId != null">
+                sc.user_id = #{userId}
+            </if>
+            <if test="shopId != null">
+                AND sc.shop_id = #{shopId}
+            </if>
+            and sc.status = 'ok'
+        </where>
+        <if test="pageSize != null and offset != null">
+            limit #{pageSize} offset #{offset}
+        </if>
+        ) t1
+        join shopping_cart as sc on t1.shop_id = sc.shop_id
+        join shop as s on t1.shop_id = s.id
+        join goods as g on sc.goods_id = g.id
+        <where>
+            <if test="userId != null">
+                sc.user_id = #{userId}
+            </if>
+            and s.status = 'ok'
+            and g.status = 'ok'
+            and sc.status = 'ok'
+        </where>
+    </select>
+
+    <select id="countShoppingCartDataByUserId" resultType="Integer">
+        select count(distinct sc.shop_id)
+        from shopping_cart as sc
+        where sc.user_id = #{userId}
+          and sc.status = 'ok'
+    </select>
+</mapper>
