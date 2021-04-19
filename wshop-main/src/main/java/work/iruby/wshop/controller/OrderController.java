@@ -18,9 +18,9 @@ import org.springframework.web.bind.annotation.RestController;
 public class OrderController {
 
     @PostMapping("order")
-    public Object addOrder(){
+    public Object addOrder() {
         return null;
-    };
+    }
 
 }
 

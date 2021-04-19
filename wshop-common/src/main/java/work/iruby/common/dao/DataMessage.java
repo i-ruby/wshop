@@ -1,4 +1,4 @@
-package work.iruby.wshop.entity;
+package work.iruby.common.dao;
 
 import lombok.AllArgsConstructor;
 import lombok.Data;
@@ -12,11 +12,11 @@ public class DataMessage<T> {
     private T data;
 
     public static <T> DataMessage<T> of(String message, T data) {
-        return new DataMessage<T>(message, data);
+        return new DataMessage<>(message, data);
     }
 
     public static <T> DataMessage<T> of(T data) {
-        return new DataMessage<T>(null, data);
+        return new DataMessage<>(null, data);
     }
 
 }

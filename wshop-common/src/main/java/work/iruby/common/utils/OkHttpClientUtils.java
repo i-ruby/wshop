@@ -1,4 +1,4 @@
-package work.iruby.wshop.utils;
+package work.iruby.common.utils;
 
 import com.alibaba.fastjson.JSON;
 import edu.umd.cs.findbugs.annotations.SuppressFBWarnings;

@@ -1,4 +1,4 @@
-package work.iruby.wshop.enumerations;
+package work.iruby.common.enums;
 
 public enum DataStatus {
     OK("ok"),

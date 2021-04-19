@@ -4,10 +4,10 @@ import com.alibaba.fastjson.JSON;
 import com.alibaba.fastjson.TypeReference;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.Test;
-import work.iruby.wshop.entity.DataMessage;
-import work.iruby.wshop.entity.PageMessage;
+import work.iruby.common.dao.DataMessage;
+import work.iruby.common.dao.PageMessage;
+import work.iruby.common.utils.OkHttpClientUtils;
 import work.iruby.wshop.entity.ShoppingCartData;
-import work.iruby.wshop.utils.OkHttpClientUtils;
 
 import java.io.IOException;
 import java.util.List;

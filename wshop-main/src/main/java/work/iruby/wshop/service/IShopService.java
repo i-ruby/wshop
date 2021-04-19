@@ -1,8 +1,8 @@
 package work.iruby.wshop.service;
 
 import com.baomidou.mybatisplus.extension.service.IService;
-import work.iruby.wshop.entity.DataMessage;
-import work.iruby.wshop.entity.PageMessage;
+import work.iruby.common.dao.DataMessage;
+import work.iruby.common.dao.PageMessage;
 import work.iruby.wshop.entity.Shop;
 
 import java.util.List;

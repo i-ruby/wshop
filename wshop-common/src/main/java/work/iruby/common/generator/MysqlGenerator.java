@@ -1,4 +1,4 @@
-package work.iruby.wshop.generator;
+package work.iruby.common.generator;
 
 import com.baomidou.mybatisplus.generator.AutoGenerator;
 import com.baomidou.mybatisplus.generator.config.DataSourceConfig;

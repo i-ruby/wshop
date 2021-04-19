@@ -1,4 +1,4 @@
-package work.iruby.wshop.entity;
+package work.iruby.common.dao;
 
 import lombok.AllArgsConstructor;
 import lombok.Data;
@@ -14,6 +14,6 @@ public class PageMessage<T> {
     private T data;
 
     public static <T> PageMessage<T> of(int pageNum, int pageSize, int totalPage, T data) {
-        return new PageMessage<T>(pageNum, pageSize, totalPage, data);
+        return new PageMessage<>(pageNum, pageSize, totalPage, data);
     }
 }

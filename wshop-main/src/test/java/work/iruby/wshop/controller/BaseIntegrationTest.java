@@ -4,8 +4,8 @@ import org.flywaydb.core.Flyway;
 import org.junit.jupiter.api.BeforeEach;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.boot.web.server.LocalServerPort;
-import work.iruby.wshop.entity.TelAndCode;
-import work.iruby.wshop.utils.OkHttpClientUtils;
+import work.iruby.common.dao.TelAndCode;
+import work.iruby.common.utils.OkHttpClientUtils;
 
 import java.io.IOException;
 

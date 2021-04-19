@@ -1,4 +1,4 @@
-package work.iruby.wshop.utils;
+package work.iruby.common.utils;
 
 import okhttp3.Interceptor;
 import okhttp3.Request;
@@ -12,7 +12,7 @@ class LoggingInterceptor implements Interceptor {
     Logger logger = LoggerFactory.getLogger(LoggingInterceptor.class);
 
     @Override
-    public Response intercept(Interceptor.Chain chain) throws IOException {
+    public Response intercept(Chain chain) throws IOException {
         Request request = chain.request();
 
         long t1 = System.nanoTime();

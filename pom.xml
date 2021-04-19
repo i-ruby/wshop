@@ -17,6 +17,7 @@
     <packaging>pom</packaging>
     <modules>
         <module>wshop-main</module>
+        <module>wshop-common</module>
     </modules>
 
     <properties>
@@ -30,6 +31,8 @@
         <okhttp.version>4.9.1</okhttp.version>
         <guava.version>30.1.1-jre</guava.version>
         <spotbugs.version>4.2.2</spotbugs.version>
+
+        <wshop.common>0.0.1-SNAPSHOT</wshop.common>
     </properties>
 
     <dependencies>
@@ -92,5 +95,15 @@
             <scope>runtime</scope>
             <optional>true</optional>
         </dependency>
+
     </dependencies>
+    <dependencyManagement>
+        <dependencies>
+            <dependency>
+                <groupId>work.iruby</groupId>
+                <artifactId>wshop-common</artifactId>
+                <version>${wshop.common}</version>
+            </dependency>
+        </dependencies>
+    </dependencyManagement>
 </project>
