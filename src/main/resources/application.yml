@@ -1,4 +1,6 @@
 spring:
+  application:
+    name: wshop-main
   devtools:
     restart:
       enabled: true
@@ -16,3 +18,14 @@ mybatis-plus:
   global-config:
     db-config:
       id-type: auto
+
+#wshop:
+#  service:
+#    version: 1.0.0
+
+zookeeper:
+  port: 2181
+
+dubbo:
+  registry:
+    address: zookeeper://121.4.73.4:${zookeeper.port}
