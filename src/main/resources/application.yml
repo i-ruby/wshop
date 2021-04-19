@@ -13,8 +13,6 @@ mybatis-plus:
   mapper-locations: classpath*:/db/xml/**/*.xml
   configuration:
     mapUnderscoreToCamelCase: true
-  #    对所有的 resultMap 都进行自动映射
-  #    autoMappingBehavior: FULL
   global-config:
     db-config:
       id-type: auto
@@ -23,9 +21,10 @@ mybatis-plus:
 #  service:
 #    version: 1.0.0
 
-zookeeper:
-  port: 2181
-
 dubbo:
   registry:
-    address: zookeeper://121.4.73.4:${zookeeper.port}
+    protocol: zookeeper
+    timeout: 10000
+    address: 121.4.73.4:2181
+
+
