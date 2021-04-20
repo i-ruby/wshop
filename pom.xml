@@ -17,6 +17,7 @@
     <packaging>pom</packaging>
     <modules>
         <module>wshop-main</module>
+        <module>wshop-order</module>
         <module>wshop-common</module>
     </modules>
 
@@ -70,11 +71,6 @@
             <version>${fastjson.version}</version>
         </dependency>
         <dependency>
-            <groupId>com.squareup.okhttp3</groupId>
-            <artifactId>okhttp</artifactId>
-            <version>${okhttp.version}</version>
-        </dependency>
-        <dependency>
             <groupId>com.google.guava</groupId>
             <artifactId>guava</artifactId>
             <version>${guava.version}</version>
@@ -103,6 +99,11 @@
                 <groupId>work.iruby</groupId>
                 <artifactId>wshop-common</artifactId>
                 <version>${wshop.common}</version>
+            </dependency>
+            <dependency>
+                <groupId>com.squareup.okhttp3</groupId>
+                <artifactId>okhttp</artifactId>
+                <version>${okhttp.version}</version>
             </dependency>
         </dependencies>
     </dependencyManagement>

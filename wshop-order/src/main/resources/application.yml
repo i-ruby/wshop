@@ -1,0 +1,24 @@
+spring:
+  application:
+    name: wshop-order
+  devtools:
+    restart:
+      enabled: true
+  datasource:
+    username: root
+    password: iruby234
+    url: jdbc:mysql://121.4.73.4:3306/order
+    driver-class-name: com.mysql.cj.jdbc.Driver
+mybatis-plus:
+  mapper-locations: classpath*:/db/xml/**/*.xml
+  configuration:
+    mapUnderscoreToCamelCase: true
+  global-config:
+    db-config:
+      id-type: auto
+
+dubbo:
+  registry:
+    protocol: zookeeper
+    timeout: 10000
+    address: 121.4.73.4:2181

@@ -4,11 +4,11 @@ import com.alibaba.fastjson.JSON;
 import com.alibaba.fastjson.TypeReference;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.Test;
-import work.iruby.common.dao.DataMessage;
-import work.iruby.common.dao.PageMessage;
-import work.iruby.common.enums.DataStatus;
-import work.iruby.common.utils.OkHttpClientUtils;
-import work.iruby.wshop.entity.Shop;
+import work.iruby.wshop.common.dao.DataMessage;
+import work.iruby.wshop.common.dao.PageMessage;
+import work.iruby.wshop.common.enums.DataStatus;
+import work.iruby.wshop.common.utils.OkHttpClientUtils;
+import work.iruby.wshop.main.entity.Shop;
 
 import java.io.IOException;
 import java.util.List;

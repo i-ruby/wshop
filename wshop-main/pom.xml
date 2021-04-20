@@ -9,8 +9,8 @@
     <modelVersion>4.0.0</modelVersion>
     <artifactId>wshop-main</artifactId>
     <version>0.0.1-SNAPSHOT</version>
-    <name>wshop</name>
-    <description>wshop</description>
+    <name>wshop-main</name>
+    <description>wshop-main</description>
 
     <dependencies>
         <dependency>
@@ -125,8 +125,7 @@
                 <version>0.8.6</version>
                 <configuration>
                     <excludes>
-                        <exclude>work/iruby/wshop/entity/**/*</exclude>
-                        <exclude>work/iruby/wshop/generator/**/*</exclude>
+                        <exclude>work/iruby/wshop/main/entity/**/*</exclude>
                     </excludes>
                 </configuration>
                 <executions>

@@ -2,8 +2,8 @@ package work.iruby.wshop.controller;
 
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.Test;
-import work.iruby.common.dao.TelAndCode;
-import work.iruby.common.utils.OkHttpClientUtils;
+import work.iruby.wshop.common.dao.TelAndCode;
+import work.iruby.wshop.common.utils.OkHttpClientUtils;
 
 import java.io.IOException;
 

@@ -4,12 +4,13 @@ import org.flywaydb.core.Flyway;
 import org.junit.jupiter.api.BeforeEach;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.boot.web.server.LocalServerPort;
-import work.iruby.common.dao.TelAndCode;
-import work.iruby.common.utils.OkHttpClientUtils;
+import work.iruby.wshop.common.dao.TelAndCode;
+import work.iruby.wshop.common.utils.OkHttpClientUtils;
+import work.iruby.wshop.main.WshopApplication;
 
 import java.io.IOException;
 
-@SpringBootTest(webEnvironment = SpringBootTest.WebEnvironment.RANDOM_PORT)
+@SpringBootTest(classes = WshopApplication.class, webEnvironment = SpringBootTest.WebEnvironment.RANDOM_PORT)
 abstract class BaseIntegrationTest {
     @LocalServerPort
     private int port;
