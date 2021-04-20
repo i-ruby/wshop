@@ -1,5 +1,10 @@
 package work.iruby.wshop.main.rpc;
 
+import work.iruby.wshop.common.dao.GoodsIdAndNumber;
+import work.iruby.wshop.common.dao.OrderExpressAndStatus;
+
+import java.util.List;
+
 /**
  * <p>
  * 服务类
@@ -10,4 +15,11 @@ package work.iruby.wshop.main.rpc;
  */
 public interface IOrderService {
 
+    Object addOrder(List<GoodsIdAndNumber> goodsIdAndNumberList, Long userId);
+
+    Object deleteOrderByOrderId(Long orderId, Long userId);
+
+    Object updateOrderByOrderId(Long orderId, OrderExpressAndStatus orderExpressAndStatus, Long userId);
+
+    Object getCurrentUserPageOrders(Integer pageNum, Integer pageSize, String status, Long userId);
 }

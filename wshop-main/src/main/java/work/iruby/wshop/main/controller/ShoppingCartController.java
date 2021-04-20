@@ -36,9 +36,9 @@ public class ShoppingCartController {
     }
 
     @GetMapping("/shoppingCart")
-    public PageMessage<List<ShoppingCartData>> index(@RequestParam(name = "pageNum") Integer pageNum,
+    public PageMessage<List<ShoppingCartData>> getCurrentUserPageShoppingCartData(@RequestParam(name = "pageNum") Integer pageNum,
                                                      @RequestParam(name = "pageSize") Integer pageSize) {
-        return shoppingCartService.getPageShoppingCartDataCurrentUser(pageNum, pageSize, null);
+        return shoppingCartService.getCurrentUserPageShoppingCartData(pageNum, pageSize, null);
     }
 
     /**

@@ -38,7 +38,7 @@ public class ShoppingCartServiceImpl extends ServiceImpl<ShoppingCartMapper, Sho
     }
 
     @Override
-    public PageMessage<List<ShoppingCartData>> getPageShoppingCartDataCurrentUser(Integer pageNum, Integer pageSize, Long shopId) {
+    public PageMessage<List<ShoppingCartData>> getCurrentUserPageShoppingCartData(Integer pageNum, Integer pageSize, Long shopId) {
         int offset = (pageNum - 1) * pageSize;
         long userId = UserContext.getCurrentUser().getId();
         List<ShoppingCartData> pageShoppingCartData = getBaseMapper().getPageShoppingCartData(userId, shopId, pageSize, offset);

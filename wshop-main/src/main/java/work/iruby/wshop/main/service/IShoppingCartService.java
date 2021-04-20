@@ -18,7 +18,7 @@ import java.util.List;
  */
 public interface IShoppingCartService extends IService<ShoppingCart> {
 
-    PageMessage<List<ShoppingCartData>> getPageShoppingCartDataCurrentUser(Integer pageNum, Integer pageSize, Long shopId);
+    PageMessage<List<ShoppingCartData>> getCurrentUserPageShoppingCartData(Integer pageNum, Integer pageSize, Long shopId);
 
     DataMessage<ShoppingCartData> addShoppingCartData(ShoppingCartData shoppingCartData);
 

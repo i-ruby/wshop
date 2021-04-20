@@ -31,7 +31,7 @@ public class MysqlGenerator {
         mpg.setGlobalConfig(gc);
         // 数据源配置
         DataSourceConfig dsc = new DataSourceConfig();
-        dsc.setUrl("jdbc:mysql://121.4.73.4:3306/wshop");
+        dsc.setUrl("jdbc:mysql://121.4.73.4:3306/order");
         // dsc.setSchemaName("public");
         dsc.setDriverName("com.mysql.cj.jdbc.Driver");
         dsc.setUsername("root");
@@ -40,7 +40,7 @@ public class MysqlGenerator {
 
         // 包配置
         PackageConfig pc = new PackageConfig();
-        pc.setParent("work.iruby.wshop");
+        pc.setParent("work.iruby.wshop.order");
         mpg.setPackageInfo(pc);
 
         mpg.setTemplate(new TemplateConfig().setXml(null));
@@ -49,11 +49,10 @@ public class MysqlGenerator {
         StrategyConfig strategy = new StrategyConfig();
         strategy.setNaming(NamingStrategy.underline_to_camel);
         strategy.setColumnNaming(NamingStrategy.underline_to_camel);
-        strategy.setSuperEntityClass("work.iruby.wshop.common.BaseEntity");
         strategy.setEntityLombokModel(true);
 
 //        strategy.setInclude("user", "goods", "shop", "shopping_cart");
-        strategy.setInclude("shop");
+        strategy.setInclude("order_goods", "order_table");
         strategy.setControllerMappingHyphenStyle(true);
         strategy.setTablePrefix(pc.getModuleName() + "_");
         mpg.setStrategy(strategy);

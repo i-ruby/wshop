@@ -3,7 +3,7 @@ package work.iruby.wshop.common.enums;
 public enum DataStatus {
     OK("ok"),
     DELETED("deleted");
-    private String value;
+    private final String value;
 
     DataStatus(String value) {
         this.value = value;
@@ -11,5 +11,10 @@ public enum DataStatus {
 
     public String value() {
         return value;
+    }
+
+    @Override
+    public String toString() {
+        return value();
     }
 }
