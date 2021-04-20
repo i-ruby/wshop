@@ -1,4 +1,4 @@
-package work.iruby.wshop.main.rpc;
+package work.iruby.wshop.rpc.service;
 
 import work.iruby.wshop.common.dao.GoodsIdAndNumber;
 import work.iruby.wshop.common.dao.OrderExpressAndStatus;

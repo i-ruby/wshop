@@ -17,9 +17,9 @@ mybatis-plus:
     db-config:
       id-type: auto
 
-#wshop:
-#  service:
-#    version: 1.0.0
+wshop:
+  service:
+    version: 1.0.0
 
 dubbo:
   registry:
@@ -27,4 +27,5 @@ dubbo:
     timeout: 10000
     address: 121.4.73.4:2181
 
-
+server:
+  port: 8080
