@@ -14,7 +14,7 @@
             <result property="updatedAt" column="updated_at"/>
             <result property="createdAt" column="created_at"/>
         </association>
-        <collection property="goods" columnPrefix="scg_" ofType="work.iruby.wshop.main.entity.ShoppingCartGoods">
+        <collection property="goods" columnPrefix="scg_" ofType="work.iruby.wshop.common.dao.ShoppingCartGoods">
             <id property="id" column="id"/>
             <result property="name" column="name"/>
             <result property="description" column="description"/>

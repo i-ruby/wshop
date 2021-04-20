@@ -9,7 +9,7 @@ import work.iruby.wshop.common.dao.PageMessage;
 import work.iruby.wshop.common.enums.DataStatus;
 import work.iruby.wshop.common.entity.ShoppingCart;
 import work.iruby.wshop.main.entity.ShoppingCartData;
-import work.iruby.wshop.main.entity.ShoppingCartGoods;
+import work.iruby.wshop.common.dao.ShoppingCartGoods;
 import work.iruby.wshop.main.mapper.ShoppingCartMapper;
 import work.iruby.wshop.main.service.IGoodsService;
 import work.iruby.wshop.main.service.IShoppingCartService;

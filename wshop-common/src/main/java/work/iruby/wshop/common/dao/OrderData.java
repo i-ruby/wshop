@@ -1,23 +1,23 @@
-package work.iruby.wshop.main.entity;
+package work.iruby.wshop.common.dao;
 
-import com.fasterxml.jackson.annotation.JsonIgnore;
 import lombok.Data;
 import lombok.EqualsAndHashCode;
-import work.iruby.wshop.common.dao.ShoppingCartGoods;
 import work.iruby.wshop.common.entity.Shop;
 
 import java.util.List;
 
 @Data
 @EqualsAndHashCode
-public class ShoppingCartData {
+public class OrderData {
 
     private static final long serialVersionUID = 1L;
 
-    @JsonIgnore
-    private transient int id;
-
+    private Long id;
+    private Long totalPrice;
+    private String address;
+    private String expressCompany;
+    private String expressId;
+    private String status;
     private Shop shop;
-
     private List<ShoppingCartGoods> goods;
 }

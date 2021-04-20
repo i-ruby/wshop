@@ -1,0 +1,67 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="work.iruby.wshop.order.mapper.OrderDataMapper">
+    <resultMap id="OrderData" type="work.iruby.wshop.common.dao.OrderData">
+        <id property="id" column="ot_id"/>
+        <result property="totalPrice" column="ot_total_price"/>
+        <result property="address" column="ot_address"/>
+        <result property="expressCompany" column="ot_express_company"/>
+        <result property="expressId" column="ot_express_id"/>
+        <result property="status" column="ot_status"/>
+
+        <association property="shop" javaType="work.iruby.wshop.common.entity.Shop">
+            <id property="id" column="ot_shop_id"/>
+        </association>
+        <collection property="goods" ofType="work.iruby.wshop.common.dao.ShoppingCartGoods">
+            <id property="id" column="og_goods_id"/>
+            <result property="number" column="og_number"/>
+        </collection>
+    </resultMap>
+    <select id="getPageOrderData" resultMap="OrderData">
+        select ot.id as ot_id,
+        ot.total_price as ot_total_price,
+        ot.address as ot_address,
+        ot.express_company as ot_express_company,
+        ot.express_id as ot_express_id,
+        ot.status as ot_status,
+        ot.shop_id as ot_shop_id,
+        og.goods_id as og_goods_id,
+        og.number as og_number
+        from order_table as ot
+        join order_goods as og on ot.id = og.order_id
+        where
+        og.order_id in (select t.id from (
+        select id from order_table
+        <where>
+            <if test="userId != null">
+                ot.user_id = #{userId}
+            </if>
+            <if test="orderId != null">
+                AND ot.order_id = #{orderId}
+            </if>
+            <if test="status != null">
+                AND ot.status = #{status}
+            </if>
+        </where>
+        <if test="limit != null and offset != null">
+            limit #{limit} offset #{offset}
+        </if>
+        )as t)
+    </select>
+
+    <select id="countPageOrderData" resultType="Integer">
+        select count(id) from order_table as ot
+        <where>
+            <if test="userId != null">
+                ot.user_id = #{userId}
+            </if>
+            <if test="status != null">
+                AND ot.status = #{status}
+            </if>
+        </where>
+    </select>
+
+
+</mapper>

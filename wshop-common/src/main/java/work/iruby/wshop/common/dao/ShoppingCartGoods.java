@@ -1,4 +1,4 @@
-package work.iruby.wshop.main.entity;
+package work.iruby.wshop.common.dao;
 
 import lombok.Data;
 import lombok.EqualsAndHashCode;

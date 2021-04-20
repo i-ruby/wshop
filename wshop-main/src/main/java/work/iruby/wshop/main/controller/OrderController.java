@@ -12,8 +12,9 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 import work.iruby.wshop.common.dao.GoodsIdAndNumber;
+import work.iruby.wshop.common.dao.OrderData;
 import work.iruby.wshop.common.dao.OrderExpressAndStatus;
-import work.iruby.wshop.main.service.UserContext;
+import work.iruby.wshop.common.dao.PageMessage;
 import work.iruby.wshop.main.service.impl.IOrderServiceImpl;
 
 import java.util.List;
@@ -39,28 +40,24 @@ public class OrderController {
 
     @PostMapping("order")
     public Object addOrder(@RequestBody List<GoodsIdAndNumber> goodsIdAndNumberList) {
-        Long UserId = UserContext.getCurrentUser().getId();
-        return orderService.addOrder(goodsIdAndNumberList, UserId);
+        return orderService.addOrder(goodsIdAndNumberList);
     }
 
     @DeleteMapping("order/{id}")
     public Object deleteOrderByOrderId(@PathVariable(value = "id") Long orderId) {
-        Long UserId = UserContext.getCurrentUser().getId();
-        return orderService.deleteOrderByOrderId(orderId, UserId);
+        return orderService.deleteOrderByOrderId(orderId);
     }
 
     @PatchMapping("order/{id}")
     public Object updateOrderByOrderId(@PathVariable(value = "id") Long orderId, @RequestBody OrderExpressAndStatus orderExpressAndStatus) {
-        Long UserId = UserContext.getCurrentUser().getId();
-        return orderService.updateOrderByOrderId(orderId, orderExpressAndStatus, UserId);
+        return orderService.updateOrderByOrderId(orderId, orderExpressAndStatus);
     }
 
     @GetMapping("order")
-    public Object getCurrentUserPageOrders(@RequestParam(name = "pageNum") Integer pageNum,
-                                           @RequestParam(name = "pageSize") Integer pageSize,
-                                           @RequestParam(name = "status", required = false) String status) {
-        Long UserId = UserContext.getCurrentUser().getId();
-        return orderService.getCurrentUserPageOrders(pageNum, pageSize, status, UserId);
+    public PageMessage<List<OrderData>> getCurrentUserPageOrders(@RequestParam(name = "pageNum") Integer pageNum,
+                                                           @RequestParam(name = "pageSize") Integer pageSize,
+                                                           @RequestParam(name = "status", required = false) String status) {
+        return orderService.getCurrentUserPageOrders(pageNum, pageSize, status);
     }
 
 }
