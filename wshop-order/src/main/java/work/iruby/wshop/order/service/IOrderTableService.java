@@ -1,7 +1,8 @@
 package work.iruby.wshop.order.service;
 
 import com.baomidou.mybatisplus.extension.service.IService;
-import work.iruby.wshop.order.entity.OrderTable;
+import work.iruby.wshop.common.entity.OrderTable;
+
 
 /**
  * <p>

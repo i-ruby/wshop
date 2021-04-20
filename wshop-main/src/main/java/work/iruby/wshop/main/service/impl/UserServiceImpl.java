@@ -3,7 +3,7 @@ package work.iruby.wshop.main.service.impl;
 import com.baomidou.mybatisplus.core.conditions.query.QueryWrapper;
 import com.baomidou.mybatisplus.extension.service.impl.ServiceImpl;
 import org.springframework.stereotype.Service;
-import work.iruby.wshop.main.entity.User;
+import work.iruby.wshop.common.entity.User;
 import work.iruby.wshop.main.mapper.UserMapper;
 import work.iruby.wshop.main.service.IUserService;
 

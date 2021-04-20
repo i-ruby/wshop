@@ -1,7 +1,7 @@
 package work.iruby.wshop.main.mapper;
 
 import com.baomidou.mybatisplus.core.mapper.BaseMapper;
-import work.iruby.wshop.main.entity.Goods;
+import work.iruby.wshop.common.entity.Goods;
 
 /**
  * <p>

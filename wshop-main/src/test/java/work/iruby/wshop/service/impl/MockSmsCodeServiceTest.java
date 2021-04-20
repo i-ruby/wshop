@@ -6,7 +6,7 @@ import org.mockito.InjectMocks;
 import org.mockito.Mock;
 import org.mockito.Mockito;
 import org.mockito.junit.jupiter.MockitoExtension;
-import work.iruby.wshop.main.entity.User;
+import work.iruby.wshop.common.entity.User;
 import work.iruby.wshop.main.service.impl.MockSmsCodeService;
 import work.iruby.wshop.main.service.impl.UserServiceImpl;
 

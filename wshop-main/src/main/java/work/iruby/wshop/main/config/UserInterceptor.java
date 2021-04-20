@@ -5,7 +5,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 import org.springframework.web.servlet.HandlerInterceptor;
 import org.springframework.web.servlet.ModelAndView;
-import work.iruby.wshop.main.entity.User;
+import work.iruby.wshop.common.entity.User;
 import work.iruby.wshop.main.service.IUserService;
 import work.iruby.wshop.main.service.UserContext;
 

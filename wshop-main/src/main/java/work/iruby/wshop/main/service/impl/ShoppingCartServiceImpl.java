@@ -7,7 +7,7 @@ import org.springframework.stereotype.Service;
 import work.iruby.wshop.common.dao.DataMessage;
 import work.iruby.wshop.common.dao.PageMessage;
 import work.iruby.wshop.common.enums.DataStatus;
-import work.iruby.wshop.main.entity.ShoppingCart;
+import work.iruby.wshop.common.entity.ShoppingCart;
 import work.iruby.wshop.main.entity.ShoppingCartData;
 import work.iruby.wshop.main.entity.ShoppingCartGoods;
 import work.iruby.wshop.main.mapper.ShoppingCartMapper;

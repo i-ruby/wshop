@@ -1,8 +1,9 @@
-package work.iruby.wshop.main.entity;
+package work.iruby.wshop.common.dao;
 
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
+import work.iruby.wshop.common.entity.User;
 
 
 @Data

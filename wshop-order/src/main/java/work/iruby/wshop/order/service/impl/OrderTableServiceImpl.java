@@ -2,7 +2,7 @@ package work.iruby.wshop.order.service.impl;
 
 import com.baomidou.mybatisplus.extension.service.impl.ServiceImpl;
 import org.springframework.stereotype.Service;
-import work.iruby.wshop.order.entity.OrderTable;
+import work.iruby.wshop.common.entity.OrderTable;
 import work.iruby.wshop.order.mapper.OrderTableMapper;
 import work.iruby.wshop.order.service.IOrderTableService;
 

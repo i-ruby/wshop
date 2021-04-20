@@ -1,4 +1,4 @@
-package work.iruby.wshop.main.entity;
+package work.iruby.wshop.common.entity;
 
 import com.baomidou.mybatisplus.annotation.IdType;
 import com.baomidou.mybatisplus.annotation.TableId;
@@ -17,15 +17,25 @@ import java.time.LocalDateTime;
  */
 @Data
 @EqualsAndHashCode
-public class Goods {
+public class ShoppingCart {
 
     private static final long serialVersionUID = 1L;
 
     /**
-     * 商品id
+     * 购物车id
      */
     @TableId(value = "id", type = IdType.AUTO)
     private Long id;
+
+    /**
+     * 用户id
+     */
+    private Long userId;
+
+    /**
+     * 商品id
+     */
+    private Long goodsId;
 
     /**
      * 店铺id
@@ -33,34 +43,9 @@ public class Goods {
     private Long shopId;
 
     /**
-     * 商品名
+     * 商品数量
      */
-    private String name;
-
-    /**
-     * 商品描述
-     */
-    private String description;
-
-    /**
-     * 商品细节
-     */
-    private String details;
-
-    /**
-     * 商品图片url
-     */
-    private String imgUrl;
-
-    /**
-     * 商品价格 单位 分
-     */
-    private Long price;
-
-    /**
-     * 商品库存
-     */
-    private Integer stock;
+    private Integer number;
 
     /**
      * 状态 ok正常 deleted 已经删除

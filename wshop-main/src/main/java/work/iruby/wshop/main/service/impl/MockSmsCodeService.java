@@ -3,7 +3,7 @@ package work.iruby.wshop.main.service.impl;
 import com.baomidou.mybatisplus.core.conditions.query.QueryWrapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
-import work.iruby.wshop.main.entity.User;
+import work.iruby.wshop.common.entity.User;
 import work.iruby.wshop.main.service.IUserService;
 import work.iruby.wshop.main.service.SmsCodeService;
 

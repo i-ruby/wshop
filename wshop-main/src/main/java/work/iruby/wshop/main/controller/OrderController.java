@@ -1,7 +1,7 @@
 package work.iruby.wshop.main.controller;
 
 
-import org.apache.dubbo.config.annotation.DubboReference;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PatchMapping;
@@ -14,7 +14,7 @@ import org.springframework.web.bind.annotation.RestController;
 import work.iruby.wshop.common.dao.GoodsIdAndNumber;
 import work.iruby.wshop.common.dao.OrderExpressAndStatus;
 import work.iruby.wshop.main.service.UserContext;
-import work.iruby.wshop.rpc.service.IOrderService;
+import work.iruby.wshop.main.service.impl.IOrderServiceImpl;
 
 import java.util.List;
 
@@ -30,8 +30,12 @@ import java.util.List;
 @RequestMapping("/api/v1")
 public class OrderController {
 
-    @DubboReference(version = "${wshop.service.version}")
-    IOrderService orderService;
+    IOrderServiceImpl orderService;
+
+    @Autowired
+    public OrderController(IOrderServiceImpl orderService) {
+        this.orderService = orderService;
+    }
 
     @PostMapping("order")
     public Object addOrder(@RequestBody List<GoodsIdAndNumber> goodsIdAndNumberList) {

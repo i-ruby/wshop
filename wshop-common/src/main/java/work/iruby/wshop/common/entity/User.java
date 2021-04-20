@@ -1,4 +1,4 @@
-package work.iruby.wshop.main.entity;
+package work.iruby.wshop.common.entity;
 
 import com.baomidou.mybatisplus.annotation.IdType;
 import com.baomidou.mybatisplus.annotation.TableId;
@@ -13,44 +13,39 @@ import java.time.LocalDateTime;
  * </p>
  *
  * @author iruby
- * @since 2021-04-12
+ * @since 2021-04-11
  */
 @Data
 @EqualsAndHashCode
-public class Shop {
+public class User {
 
     private static final long serialVersionUID = 1L;
 
     /**
-     * 店铺id
+     * 用户id
      */
     @TableId(value = "id", type = IdType.AUTO)
     private Long id;
 
     /**
-     * 店铺名
+     * 用户名
      */
     private String name;
 
     /**
-     * 店铺描述
+     * 用户电话
      */
-    private String description;
+    private String tel;
 
     /**
-     * 店铺图片url
+     * 用户头像url
      */
-    private String imgUrl;
+    private String avatarUrl;
 
     /**
-     * 店主用户id
+     * 用户地址
      */
-    private Long ownerUserId;
-
-    /**
-     * 状态 ok正常 deleted 已经删除
-     */
-    private String status;
+    private String address;
 
     /**
      * 创建时间

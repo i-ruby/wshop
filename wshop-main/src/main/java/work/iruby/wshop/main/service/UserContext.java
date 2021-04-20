@@ -1,6 +1,6 @@
 package work.iruby.wshop.main.service;
 
-import work.iruby.wshop.main.entity.User;
+import work.iruby.wshop.common.entity.User;
 
 public class UserContext {
     private static ThreadLocal<User> currentUser = new ThreadLocal<>();

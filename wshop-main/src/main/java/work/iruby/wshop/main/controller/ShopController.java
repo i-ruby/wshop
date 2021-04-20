@@ -12,7 +12,7 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 import work.iruby.wshop.common.dao.DataMessage;
 import work.iruby.wshop.common.dao.PageMessage;
-import work.iruby.wshop.main.entity.Shop;
+import work.iruby.wshop.common.entity.Shop;
 import work.iruby.wshop.main.service.IShopService;
 
 import java.util.List;
