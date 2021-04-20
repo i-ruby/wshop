@@ -60,7 +60,7 @@
                 <artifactId>flyway-maven-plugin</artifactId>
                 <configuration>
                     <configFiles>
-                        <configFile>${basedir}/src/order/resources/conf/flyway.conf</configFile>
+                        <configFile>${basedir}/src/main/resources/conf/flyway.conf</configFile>
                     </configFiles>
                 </configuration>
             </plugin>
