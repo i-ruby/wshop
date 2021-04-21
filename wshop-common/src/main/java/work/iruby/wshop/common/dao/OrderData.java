@@ -4,11 +4,12 @@ import lombok.Data;
 import lombok.EqualsAndHashCode;
 import work.iruby.wshop.common.entity.Shop;
 
+import java.io.Serializable;
 import java.util.List;
 
 @Data
 @EqualsAndHashCode
-public class OrderData {
+public class OrderData implements Serializable {
 
     private static final long serialVersionUID = 1L;
 

@@ -1,7 +1,6 @@
 package work.iruby.wshop.rpc.service;
 
 import work.iruby.wshop.common.dao.DataMessage;
-import work.iruby.wshop.common.dao.GoodsIdAndNumber;
 import work.iruby.wshop.common.dao.OrderData;
 import work.iruby.wshop.common.dao.OrderExpressAndStatus;
 import work.iruby.wshop.common.dao.PageMessage;
@@ -18,7 +17,7 @@ import java.util.List;
  */
 public interface RpcOrderService {
 
-    DataMessage<OrderData> addOrder(List<GoodsIdAndNumber> goodsIdAndNumberList, Long userId);
+    DataMessage<OrderData> addOrder(OrderData order, Long userId);
 
     DataMessage<OrderData> deleteOrderByOrderId(Long orderId, Long userId);
 

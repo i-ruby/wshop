@@ -36,13 +36,13 @@
         select id from order_table
         <where>
             <if test="userId != null">
-                ot.user_id = #{userId}
+                user_id = #{userId}
             </if>
             <if test="orderId != null">
-                AND ot.order_id = #{orderId}
+                AND order_id = #{orderId}
             </if>
             <if test="status != null">
-                AND ot.status = #{status}
+                AND status = #{status}
             </if>
         </where>
         <if test="limit != null and offset != null">
