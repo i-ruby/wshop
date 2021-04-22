@@ -1,18 +1,33 @@
 spring:
+  application:
+    name: wshop-order
   devtools:
     restart:
       enabled: true
   datasource:
     username: root
     password: iruby234
-    url: jdbc:mysql://121.4.73.4:3307/wshop
+    url: jdbc:mysql://121.4.73.4:3307/order
     driver-class-name: com.mysql.cj.jdbc.Driver
 mybatis-plus:
   mapper-locations: classpath*:/db/xml/**/*.xml
   configuration:
     mapUnderscoreToCamelCase: true
-  #    对所有的 resultMap 都进行自动映射
-  #    autoMappingBehavior: FULL
   global-config:
     db-config:
       id-type: auto
+
+wshop:
+  service:
+    version: 1.0.0
+
+dubbo:
+  scan:
+    base-packages: work.iruby.wshop.order.service.impl
+  protocol:
+    name: dubbo
+    port: -1
+  registry:
+    protocol: zookeeper
+    timeout: 20000
+    address: 121.4.73.4:2181

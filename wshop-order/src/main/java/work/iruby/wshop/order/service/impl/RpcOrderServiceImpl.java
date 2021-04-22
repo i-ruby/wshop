@@ -15,7 +15,7 @@ import work.iruby.wshop.common.enums.OrderStatus;
 import work.iruby.wshop.order.mapper.OrderDataMapper;
 import work.iruby.wshop.order.service.IOrderGoodsService;
 import work.iruby.wshop.order.service.IOrderTableService;
-import work.iruby.wshop.rpc.service.RpcOrderService;
+import work.iruby.wshop.common.rpc.RpcOrderService;
 
 import java.time.LocalDateTime;
 import java.util.List;
@@ -39,6 +39,7 @@ public class RpcOrderServiceImpl implements RpcOrderService {
         OrderTable orderTable = new OrderTable();
         BeanUtils.copyProperties(order, orderTable);
         orderTable.setUserId(userId);
+        orderTable.setShopId(order.getShop().getId());
         orderTable.setStatus(OrderStatus.PENDING.value());
         orderTable.setCreatedAt(LocalDateTime.now());
         orderTable.setUpdatedAt(LocalDateTime.now());
@@ -48,7 +49,7 @@ public class RpcOrderServiceImpl implements RpcOrderService {
         orderGoodsList = JSON.parseArray(jsonString, OrderGoods.class);
         orderGoodsList.forEach(orderGoods -> {
             orderGoods.setGoodsId(orderGoods.getId());
-            orderGoods.setOrderId(order.getId());
+            orderGoods.setOrderId(orderTable.getId());
             orderGoods.setId(null);
         });
         orderGoodsService.saveBatch(orderGoodsList);

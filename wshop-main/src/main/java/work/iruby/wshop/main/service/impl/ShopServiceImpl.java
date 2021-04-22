@@ -6,9 +6,9 @@ import com.baomidou.mybatisplus.extension.service.impl.ServiceImpl;
 import org.springframework.stereotype.Service;
 import work.iruby.wshop.common.dao.DataMessage;
 import work.iruby.wshop.common.dao.PageMessage;
-import work.iruby.wshop.common.enums.DataStatus;
 import work.iruby.wshop.common.entity.Shop;
-import work.iruby.wshop.common.entity.User;
+import work.iruby.wshop.common.enums.DataStatus;
+import work.iruby.wshop.common.exception.HttpException;
 import work.iruby.wshop.main.mapper.ShopMapper;
 import work.iruby.wshop.main.service.IShopService;
 import work.iruby.wshop.main.service.UserContext;
@@ -29,7 +29,7 @@ public class ShopServiceImpl extends ServiceImpl<ShopMapper, Shop> implements IS
     @Override
     public DataMessage<Shop> creatShop(Shop shop) {
         shop.setId(null);
-        shop.setOwnerUserId(getCurrentUserId(""));
+        shop.setOwnerUserId(UserContext.getCurrentUserId());
         shop.setStatus(DataStatus.OK.value());
         shop.setCreatedAt(LocalDateTime.now());
         shop.setUpdatedAt(LocalDateTime.now());
@@ -39,7 +39,7 @@ public class ShopServiceImpl extends ServiceImpl<ShopMapper, Shop> implements IS
 
     @Override
     public DataMessage<Shop> deleteShopByShopId(Long shopId) {
-        Shop shop = checkCurrentUserPermission(shopId, "");
+        Shop shop = checkCurrentUserPermission(shopId);
         shop.setStatus(DataStatus.DELETED.value());
         shop.setUpdatedAt(LocalDateTime.now());
         updateById(shop);
@@ -48,14 +48,14 @@ public class ShopServiceImpl extends ServiceImpl<ShopMapper, Shop> implements IS
 
     @Override
     public DataMessage<Shop> updateShopByShopId(Long shopId, Shop shop) {
-        checkCurrentUserPermission(shopId, "");
+        checkCurrentUserPermission(shopId);
         updateById(shop);
         return DataMessage.of(getById(shopId));
     }
 
     @Override
     public PageMessage<List<Shop>> getShopsCurrentUser(Integer pageNum, Integer pageSize) {
-        Long currentUserId = getCurrentUserId("");
+        Long currentUserId = UserContext.getCurrentUserId();
         Page<Shop> shopPage = new Page<>();
         shopPage.setCurrent(pageNum);
         shopPage.setSize(pageSize);
@@ -69,29 +69,17 @@ public class ShopServiceImpl extends ServiceImpl<ShopMapper, Shop> implements IS
 
     @Override
     public DataMessage<Shop> getShopByShopId(Long shopId) {
-        Shop shop = checkCurrentUserPermission(shopId, "");
+        Shop shop = checkCurrentUserPermission(shopId);
         return DataMessage.of(shop);
     }
 
-    private Long getCurrentUserId(String msg) {
-        User currentUser = UserContext.getCurrentUser();
-        if (currentUser != null) {
-            return currentUser.getId();
-        } else {
-            throw new RuntimeException(msg);
-        }
-    }
-
-    private Shop checkCurrentUserPermission(Long shopId, String msg) {
-        if (shopId == null) {
-            return null;
-        }
+    private Shop checkCurrentUserPermission(Long shopId) {
         Shop shop = getById(shopId);
         if (shop == null || !DataStatus.OK.value().equals(shop.getStatus())) {
-            return null;
+            throw HttpException.notFound("店铺未找到");
         }
-        if (!getCurrentUserId("").equals(shop.getOwnerUserId())) {
-            throw new RuntimeException(msg);
+        if (UserContext.getCurrentUserId().equals(shop.getOwnerUserId())) {
+            throw HttpException.forbidden("用户尝试操作不属于自己的店铺");
         }
 
         return shop;

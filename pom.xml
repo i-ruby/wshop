@@ -19,7 +19,6 @@
         <module>wshop-main</module>
         <module>wshop-order</module>
         <module>wshop-common</module>
-        <module>wshop-rpc</module>
     </modules>
 
     <properties>
@@ -101,11 +100,6 @@
                 <groupId>work.iruby</groupId>
                 <artifactId>wshop-common</artifactId>
                 <version>${wshop.common}</version>
-            </dependency>
-            <dependency>
-                <groupId>work.iruby</groupId>
-                <artifactId>wshop-rpc</artifactId>
-                <version>${wshop.rpc}</version>
             </dependency>
             <dependency>
                 <groupId>com.squareup.okhttp3</groupId>

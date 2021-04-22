@@ -15,7 +15,7 @@ import work.iruby.wshop.common.entity.User;
 import work.iruby.wshop.main.service.IGoodsService;
 import work.iruby.wshop.main.service.IShopService;
 import work.iruby.wshop.main.service.UserContext;
-import work.iruby.wshop.rpc.service.RpcOrderService;
+import work.iruby.wshop.common.rpc.RpcOrderService;
 
 import java.time.LocalDateTime;
 import java.util.HashMap;
@@ -29,8 +29,8 @@ public class IOrderServiceImpl {
     @DubboReference(version = "${wshop.service.version}")
     private RpcOrderService rpcOrderService;
 
-    private IGoodsService goodsService;
-    private IShopService shopService;
+    private final IGoodsService goodsService;
+    private final IShopService shopService;
 
     @Autowired
     public IOrderServiceImpl(IGoodsService goodsService, IShopService shopService) {
@@ -40,7 +40,10 @@ public class IOrderServiceImpl {
 
     public Object addOrder(OrderData order) {
         User currentUser = UserContext.getCurrentUser();
-        Long totalPrice = deductStockAndCalTotalPrice(order.getGoods());
+        if (order.getGoods() == null || order.getGoods().size() == 0) {
+            return DataMessage.of(null);
+        }
+        Long totalPrice = deductStockAndCalTotalPrice(order);
         order.setTotalPrice(totalPrice);
         order.setAddress(currentUser.getAddress());
         DataMessage<OrderData> message = rpcOrderService.addOrder(order, currentUser.getId());
@@ -69,7 +72,8 @@ public class IOrderServiceImpl {
         return message;
     }
 
-    private Long deductStockAndCalTotalPrice(List<ShoppingCartGoods> goodsIdAndNumberList) {
+    private Long deductStockAndCalTotalPrice(OrderData order) {
+        List<ShoppingCartGoods> goodsIdAndNumberList = order.getGoods();
         long totalPrice = 0L;
         Map<Long, Integer> map = new HashMap<>();
         // 假如list包含相同id goods 进行合并
@@ -82,6 +86,9 @@ public class IOrderServiceImpl {
 
         });
         List<Goods> goodsList = goodsService.listByIds(map.keySet());
+        Shop shop = new Shop();
+        shop.setId(goodsList.get(0).getShopId());
+        order.setShop(shop);
         for (Goods goods : goodsList) {
             Long goodsId = goods.getId();
             // 订单中需求的数量 大于 数据库中库存

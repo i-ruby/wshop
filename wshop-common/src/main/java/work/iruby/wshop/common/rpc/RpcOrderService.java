@@ -1,4 +1,4 @@
-package work.iruby.wshop.rpc.service;
+package work.iruby.wshop.common.rpc;
 
 import work.iruby.wshop.common.dao.DataMessage;
 import work.iruby.wshop.common.dao.OrderData;
