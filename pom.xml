@@ -34,7 +34,6 @@
         <spotbugs.version>4.2.2</spotbugs.version>
 
         <wshop.common>0.0.1-SNAPSHOT</wshop.common>
-        <wshop.rpc>0.0.1-SNAPSHOT</wshop.rpc>
     </properties>
 
     <dependencies>

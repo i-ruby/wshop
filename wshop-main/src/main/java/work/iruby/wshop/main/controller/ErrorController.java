@@ -10,7 +10,7 @@ import javax.servlet.http.HttpServletResponse;
 @RestControllerAdvice
 public class ErrorController {
     @ExceptionHandler(HttpException.class)
-    private DataMessage<String> onError(HttpServletResponse response, HttpException httpException){
+    private DataMessage<String> onError(HttpServletResponse response, HttpException httpException) {
         response.setStatus(httpException.getStatusCode());
         return DataMessage.of(httpException.getMessage());
     }

@@ -4,6 +4,7 @@ import org.apache.dubbo.config.annotation.DubboReference;
 import org.springframework.beans.BeanUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 import work.iruby.wshop.common.dao.DataMessage;
 import work.iruby.wshop.common.dao.OrderData;
 import work.iruby.wshop.common.dao.OrderExpressAndStatus;
@@ -11,13 +12,11 @@ import work.iruby.wshop.common.dao.PageMessage;
 import work.iruby.wshop.common.dao.ShoppingCartGoods;
 import work.iruby.wshop.common.entity.Goods;
 import work.iruby.wshop.common.entity.Shop;
-import work.iruby.wshop.common.entity.User;
+import work.iruby.wshop.common.rpc.RpcOrderService;
 import work.iruby.wshop.main.service.IGoodsService;
 import work.iruby.wshop.main.service.IShopService;
 import work.iruby.wshop.main.service.UserContext;
-import work.iruby.wshop.common.rpc.RpcOrderService;
 
-import java.time.LocalDateTime;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -29,8 +28,8 @@ public class IOrderServiceImpl {
     @DubboReference(version = "${wshop.service.version}")
     private RpcOrderService rpcOrderService;
 
-    private final IGoodsService goodsService;
-    private final IShopService shopService;
+    private IGoodsService goodsService;
+    private IShopService shopService;
 
     @Autowired
     public IOrderServiceImpl(IGoodsService goodsService, IShopService shopService) {
@@ -39,14 +38,8 @@ public class IOrderServiceImpl {
     }
 
     public Object addOrder(OrderData order) {
-        User currentUser = UserContext.getCurrentUser();
-        if (order.getGoods() == null || order.getGoods().size() == 0) {
-            return DataMessage.of(null);
-        }
-        Long totalPrice = deductStockAndCalTotalPrice(order);
-        order.setTotalPrice(totalPrice);
-        order.setAddress(currentUser.getAddress());
-        DataMessage<OrderData> message = rpcOrderService.addOrder(order, currentUser.getId());
+        order.setAddress(UserContext.getCurrentUser().getAddress());
+        DataMessage<OrderData> message = rpcOrderService.addOrder(order, UserContext.getCurrentUserId());
         dataFill(message.getData());
         return message;
     }
@@ -72,9 +65,28 @@ public class IOrderServiceImpl {
         return message;
     }
 
-    private Long deductStockAndCalTotalPrice(OrderData order) {
-        List<ShoppingCartGoods> goodsIdAndNumberList = order.getGoods();
+    @Transactional
+    public Long deductStockAndCalTotalPrice(OrderData order) {
         long totalPrice = 0L;
+        Map<Long, Integer> map = order2goodsIdAndNumberMap(order);
+        List<Goods> goodsList = goodsService.listByIds(map.keySet());
+        Shop shop = new Shop();
+        shop.setId(goodsList.get(0).getShopId());
+        order.setShop(shop);
+        for (Goods goods : goodsList) {
+            Long goodsId = goods.getId();
+            // 订单中需求的数量 大于 数据库中库存
+            totalPrice = totalPrice + goods.getPrice() * map.get(goodsId);
+            Integer deductStock = goodsService.deductStock(goods.getId(), map.get(goodsId));
+            if (deductStock <= 0) {
+                throw new RuntimeException("error");
+            }
+        }
+        return totalPrice;
+    }
+
+    public Map<Long, Integer> order2goodsIdAndNumberMap(OrderData order){
+        List<ShoppingCartGoods> goodsIdAndNumberList = order.getGoods();
         Map<Long, Integer> map = new HashMap<>();
         // 假如list包含相同id goods 进行合并
         goodsIdAndNumberList.forEach(goodsIdAndNumber -> {
@@ -83,27 +95,8 @@ public class IOrderServiceImpl {
             } else {
                 map.put(goodsIdAndNumber.getId(), goodsIdAndNumber.getNumber());
             }
-
         });
-        List<Goods> goodsList = goodsService.listByIds(map.keySet());
-        Shop shop = new Shop();
-        shop.setId(goodsList.get(0).getShopId());
-        order.setShop(shop);
-        for (Goods goods : goodsList) {
-            Long goodsId = goods.getId();
-            // 订单中需求的数量 大于 数据库中库存
-            if (map.get(goodsId) > goods.getStock()) {
-                throw new RuntimeException("id:" + goodsId + "的商品库存不足");
-            } else {
-                totalPrice = totalPrice + goods.getPrice() * map.get(goodsId);
-                // 预计更新goods表后的库存
-                goods.setStock(goods.getStock() - map.get(goodsId));
-                goods.setUpdatedAt(LocalDateTime.now());
-            }
-        }
-        // 更新库存信息(虽然这样不加锁必有问题
-        goodsService.updateBatchById(goodsList);
-        return totalPrice;
+        return map;
     }
 
     private void dataFill(OrderData orderData) {

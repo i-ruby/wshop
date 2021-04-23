@@ -11,6 +11,7 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
+import work.iruby.wshop.common.dao.DataMessage;
 import work.iruby.wshop.common.dao.OrderData;
 import work.iruby.wshop.common.dao.OrderExpressAndStatus;
 import work.iruby.wshop.common.dao.PageMessage;
@@ -39,6 +40,11 @@ public class OrderController {
 
     @PostMapping("/order")
     public Object addOrder(@RequestBody OrderData orderData) {
+        if (orderData.getGoods() == null || orderData.getGoods().size() == 0) {
+            return DataMessage.of(null);
+        }
+        Long totalPrice = orderService.deductStockAndCalTotalPrice(orderData);
+        orderData.setTotalPrice(totalPrice);
         return orderService.addOrder(orderData);
     }
 
@@ -54,8 +60,8 @@ public class OrderController {
 
     @GetMapping("/order")
     public PageMessage<List<OrderData>> getCurrentUserPageOrders(@RequestParam(name = "pageNum") Integer pageNum,
-                                                           @RequestParam(name = "pageSize") Integer pageSize,
-                                                           @RequestParam(name = "status", required = false) String status) {
+                                                                 @RequestParam(name = "pageSize") Integer pageSize,
+                                                                 @RequestParam(name = "status", required = false) String status) {
         return orderService.getCurrentUserPageOrders(pageNum, pageSize, status);
     }
 

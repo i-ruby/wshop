@@ -115,4 +115,9 @@ public class GoodsServiceImpl extends ServiceImpl<GoodsMapper, Goods> implements
             throw HttpException.notFound("商品所属店铺未找到");
         }
     }
+
+    @Override
+    public Integer deductStock(long goodsId, int number) {
+        return getBaseMapper().deductStock(goodsId, number);
+    }
 }

@@ -13,4 +13,6 @@ import work.iruby.wshop.common.entity.Goods;
  */
 public interface GoodsMapper extends BaseMapper<Goods> {
 
+    int deductStock(long goodsId, int number);
+
 }

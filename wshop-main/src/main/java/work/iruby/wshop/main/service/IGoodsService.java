@@ -26,4 +26,6 @@ public interface IGoodsService extends IService<Goods> {
     PageMessage<List<Goods>> getPageGoods(Integer pageNum, Integer pageSize, Integer shopId);
 
     DataMessage<Goods> getGoodByGoodId(Long id);
+
+    Integer deductStock(long goodsId, int number);
 }
