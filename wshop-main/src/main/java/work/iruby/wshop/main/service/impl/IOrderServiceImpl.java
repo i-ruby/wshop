@@ -12,6 +12,7 @@ import work.iruby.wshop.common.dao.PageMessage;
 import work.iruby.wshop.common.dao.ShoppingCartGoods;
 import work.iruby.wshop.common.entity.Goods;
 import work.iruby.wshop.common.entity.Shop;
+import work.iruby.wshop.common.exception.HttpException;
 import work.iruby.wshop.common.rpc.RpcOrderService;
 import work.iruby.wshop.main.service.IGoodsService;
 import work.iruby.wshop.main.service.IOrderService;
@@ -29,8 +30,8 @@ public class IOrderServiceImpl implements IOrderService {
     @DubboReference(version = "${wshop.service.version}")
     private RpcOrderService rpcOrderService;
 
-    private IGoodsService goodsService;
-    private IShopService shopService;
+    private final IGoodsService goodsService;
+    private final IShopService shopService;
 
     @Autowired
     public IOrderServiceImpl(IGoodsService goodsService, IShopService shopService) {
@@ -78,15 +79,15 @@ public class IOrderServiceImpl implements IOrderService {
             Long goodsId = goods.getId();
             // 订单中需求的数量 大于 数据库中库存
             totalPrice = totalPrice + goods.getPrice() * map.get(goodsId);
-            Integer deductStock = goodsService.deductStock(goods.getId(), map.get(goodsId));
-            if (deductStock <= 0) {
-                throw new RuntimeException("error");
+            Boolean success = goodsService.deductStock(goods.getId(), map.get(goodsId));
+            if (success==null || !success) {
+                throw HttpException.gone("id为" + goods.getId() + "的商品库存不足");
             }
         }
         return totalPrice;
     }
 
-    public Map<Long, Integer> order2goodsIdAndNumberMap(OrderData order){
+    public Map<Long, Integer> order2goodsIdAndNumberMap(OrderData order) {
         List<ShoppingCartGoods> goodsIdAndNumberList = order.getGoods();
         Map<Long, Integer> map = new HashMap<>();
         // 假如list包含相同id goods 进行合并

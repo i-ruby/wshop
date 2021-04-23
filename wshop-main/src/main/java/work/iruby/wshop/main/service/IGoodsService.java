@@ -27,5 +27,5 @@ public interface IGoodsService extends IService<Goods> {
 
     DataMessage<Goods> getGoodByGoodId(Long id);
 
-    Integer deductStock(long goodsId, int number);
+    Boolean deductStock(long goodsId, int number);
 }

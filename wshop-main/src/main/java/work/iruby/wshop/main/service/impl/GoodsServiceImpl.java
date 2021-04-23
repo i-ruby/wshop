@@ -117,7 +117,7 @@ public class GoodsServiceImpl extends ServiceImpl<GoodsMapper, Goods> implements
     }
 
     @Override
-    public Integer deductStock(long goodsId, int number) {
+    public Boolean deductStock(long goodsId, int number) {
         return getBaseMapper().deductStock(goodsId, number);
     }
 }

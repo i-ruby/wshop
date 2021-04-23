@@ -15,7 +15,7 @@ import work.iruby.wshop.common.dao.DataMessage;
 import work.iruby.wshop.common.dao.OrderData;
 import work.iruby.wshop.common.dao.OrderExpressAndStatus;
 import work.iruby.wshop.common.dao.PageMessage;
-import work.iruby.wshop.main.service.impl.IOrderServiceImpl;
+import work.iruby.wshop.main.service.IOrderService;
 
 import java.util.List;
 
@@ -31,10 +31,10 @@ import java.util.List;
 @RequestMapping("/api/v1")
 public class OrderController {
 
-    private final IOrderServiceImpl orderService;
+    private final IOrderService orderService;
 
     @Autowired
-    public OrderController(IOrderServiceImpl orderService) {
+    public OrderController(IOrderService orderService) {
         this.orderService = orderService;
     }
 
