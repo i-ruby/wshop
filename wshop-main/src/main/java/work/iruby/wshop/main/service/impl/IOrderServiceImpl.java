@@ -14,6 +14,7 @@ import work.iruby.wshop.common.entity.Goods;
 import work.iruby.wshop.common.entity.Shop;
 import work.iruby.wshop.common.rpc.RpcOrderService;
 import work.iruby.wshop.main.service.IGoodsService;
+import work.iruby.wshop.main.service.IOrderService;
 import work.iruby.wshop.main.service.IShopService;
 import work.iruby.wshop.main.service.UserContext;
 
@@ -23,7 +24,7 @@ import java.util.Map;
 import java.util.stream.Collectors;
 
 @Service
-public class IOrderServiceImpl {
+public class IOrderServiceImpl implements IOrderService {
 
     @DubboReference(version = "${wshop.service.version}")
     private RpcOrderService rpcOrderService;
