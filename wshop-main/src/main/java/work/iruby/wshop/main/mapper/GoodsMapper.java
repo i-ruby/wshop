@@ -1,7 +1,7 @@
 package work.iruby.wshop.main.mapper;
 
 import com.baomidou.mybatisplus.core.mapper.BaseMapper;
-import work.iruby.wshop.main.entity.Goods;
+import work.iruby.wshop.common.entity.Goods;
 
 /**
  * <p>
@@ -12,5 +12,7 @@ import work.iruby.wshop.main.entity.Goods;
  * @since 2021-04-11
  */
 public interface GoodsMapper extends BaseMapper<Goods> {
+
+    Boolean deductStock(long goodsId, int number);
 
 }

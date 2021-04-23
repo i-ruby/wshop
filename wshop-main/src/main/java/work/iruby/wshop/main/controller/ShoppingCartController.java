@@ -37,7 +37,7 @@ public class ShoppingCartController {
 
     @GetMapping("/shoppingCart")
     public PageMessage<List<ShoppingCartData>> getCurrentUserPageShoppingCartData(@RequestParam(name = "pageNum") Integer pageNum,
-                                                     @RequestParam(name = "pageSize") Integer pageSize) {
+                                                                                  @RequestParam(name = "pageSize") Integer pageSize) {
         return shoppingCartService.getCurrentUserPageShoppingCartData(pageNum, pageSize, null);
     }
 

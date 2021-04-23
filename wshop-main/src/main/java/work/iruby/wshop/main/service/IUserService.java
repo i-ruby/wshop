@@ -1,7 +1,7 @@
 package work.iruby.wshop.main.service;
 
 import com.baomidou.mybatisplus.extension.service.IService;
-import work.iruby.wshop.main.entity.User;
+import work.iruby.wshop.common.entity.User;
 
 /**
  * <p>

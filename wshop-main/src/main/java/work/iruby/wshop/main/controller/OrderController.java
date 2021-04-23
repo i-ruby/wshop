@@ -11,10 +11,11 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
-import work.iruby.wshop.common.dao.GoodsIdAndNumber;
+import work.iruby.wshop.common.dao.DataMessage;
+import work.iruby.wshop.common.dao.OrderData;
 import work.iruby.wshop.common.dao.OrderExpressAndStatus;
-import work.iruby.wshop.main.rpc.IOrderService;
-import work.iruby.wshop.main.service.UserContext;
+import work.iruby.wshop.common.dao.PageMessage;
+import work.iruby.wshop.main.service.IOrderService;
 
 import java.util.List;
 
@@ -29,37 +30,39 @@ import java.util.List;
 @RestController
 @RequestMapping("/api/v1")
 public class OrderController {
-    IOrderService orderService;
+
+    private final IOrderService orderService;
 
     @Autowired
     public OrderController(IOrderService orderService) {
         this.orderService = orderService;
     }
 
-    @PostMapping("order")
-    public Object addOrder(@RequestBody List<GoodsIdAndNumber> goodsIdAndNumberList) {
-        Long UserId = UserContext.getCurrentUser().getId();
-        return orderService.addOrder(goodsIdAndNumberList, UserId);
+    @PostMapping("/order")
+    public Object addOrder(@RequestBody OrderData orderData) {
+        if (orderData.getGoods() == null || orderData.getGoods().size() == 0) {
+            return DataMessage.of(null);
+        }
+        Long totalPrice = orderService.deductStockAndCalTotalPrice(orderData);
+        orderData.setTotalPrice(totalPrice);
+        return orderService.addOrder(orderData);
     }
 
-    @DeleteMapping("order/{id}")
+    @DeleteMapping("/order/{id}")
     public Object deleteOrderByOrderId(@PathVariable(value = "id") Long orderId) {
-        Long UserId = UserContext.getCurrentUser().getId();
-        return orderService.deleteOrderByOrderId(orderId, UserId);
+        return orderService.deleteOrderByOrderId(orderId);
     }
 
-    @PatchMapping("order/{id}")
+    @PatchMapping("/order/{id}")
     public Object updateOrderByOrderId(@PathVariable(value = "id") Long orderId, @RequestBody OrderExpressAndStatus orderExpressAndStatus) {
-        Long UserId = UserContext.getCurrentUser().getId();
-        return orderService.updateOrderByOrderId(orderId, orderExpressAndStatus, UserId);
+        return orderService.updateOrderByOrderId(orderId, orderExpressAndStatus);
     }
 
-    @GetMapping("order")
-    public Object getCurrentUserPageOrders(@RequestParam(name = "pageNum") Integer pageNum,
-                                           @RequestParam(name = "pageSize") Integer pageSize,
-                                           @RequestParam(name = "status", required = false) String status) {
-        Long UserId = UserContext.getCurrentUser().getId();
-        return orderService.getCurrentUserPageOrders(pageNum, pageSize, status, UserId);
+    @GetMapping("/order")
+    public PageMessage<List<OrderData>> getCurrentUserPageOrders(@RequestParam(name = "pageNum") Integer pageNum,
+                                                                 @RequestParam(name = "pageSize") Integer pageSize,
+                                                                 @RequestParam(name = "status", required = false) String status) {
+        return orderService.getCurrentUserPageOrders(pageNum, pageSize, status);
     }
 
 }

@@ -6,10 +6,11 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import work.iruby.wshop.common.dao.DataMessage;
 import work.iruby.wshop.common.dao.PageMessage;
+import work.iruby.wshop.common.dao.ShoppingCartGoods;
+import work.iruby.wshop.common.entity.ShoppingCart;
 import work.iruby.wshop.common.enums.DataStatus;
-import work.iruby.wshop.main.entity.ShoppingCart;
+import work.iruby.wshop.common.exception.HttpException;
 import work.iruby.wshop.main.entity.ShoppingCartData;
-import work.iruby.wshop.main.entity.ShoppingCartGoods;
 import work.iruby.wshop.main.mapper.ShoppingCartMapper;
 import work.iruby.wshop.main.service.IGoodsService;
 import work.iruby.wshop.main.service.IShoppingCartService;
@@ -53,7 +54,7 @@ public class ShoppingCartServiceImpl extends ServiceImpl<ShoppingCartMapper, Sho
         HashSet<Long> shopIdSet = new HashSet<>();
         shoppingCartGoods.forEach(goods -> shopIdSet.add(goodsService.getById(goods.getId()).getShopId()));
         if (shopIdSet.size() > 1) {
-            throw new RuntimeException("禁止添加不同店铺物品");
+            throw HttpException.badRequest("禁止添加不同店铺物品");
         }
         if (shopIdSet.size() == 0) {
             return DataMessage.of(null);
@@ -64,6 +65,9 @@ public class ShoppingCartServiceImpl extends ServiceImpl<ShoppingCartMapper, Sho
         shoppingCartGoods.forEach(goods -> {
             ShoppingCart shoppingCart = new ShoppingCart();
             shoppingCart.setGoodsId(goods.getId());
+            if (goodsService.getById(goods.getId()) == null) {
+                throw HttpException.badRequest("商品未找到");
+            }
             shoppingCart.setShopId(shopId);
             shoppingCart.setUserId(UserContext.getCurrentUser().getId());
             shoppingCart.setStatus(DataStatus.OK.value());

@@ -3,7 +3,7 @@ package work.iruby.wshop.main.service;
 import com.baomidou.mybatisplus.extension.service.IService;
 import work.iruby.wshop.common.dao.DataMessage;
 import work.iruby.wshop.common.dao.PageMessage;
-import work.iruby.wshop.main.entity.Goods;
+import work.iruby.wshop.common.entity.Goods;
 
 import java.util.List;
 
@@ -26,4 +26,6 @@ public interface IGoodsService extends IService<Goods> {
     PageMessage<List<Goods>> getPageGoods(Integer pageNum, Integer pageSize, Integer shopId);
 
     DataMessage<Goods> getGoodByGoodId(Long id);
+
+    Boolean deductStock(long goodsId, int number);
 }

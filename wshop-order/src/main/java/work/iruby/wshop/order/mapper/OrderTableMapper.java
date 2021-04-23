@@ -1,7 +1,8 @@
 package work.iruby.wshop.order.mapper;
 
 import com.baomidou.mybatisplus.core.mapper.BaseMapper;
-import work.iruby.wshop.order.entity.OrderTable;
+import work.iruby.wshop.common.entity.OrderTable;
+
 
 /**
  * <p>

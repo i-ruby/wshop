@@ -38,8 +38,7 @@
         <appender-ref ref="Console"/>
     </root>
 
-    <!-- LOG "com.baeldung*" at TRACE level -->
-    <logger name="work.iruby.wshop.mapper" level="trace" additivity="false">
+    <logger name="work.iruby.wshop.order.mapper" level="trace" additivity="false">
         <appender-ref ref="Console"/>
     </logger>
 

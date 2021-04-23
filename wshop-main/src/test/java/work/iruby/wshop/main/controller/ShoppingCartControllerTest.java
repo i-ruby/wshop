@@ -1,4 +1,4 @@
-package work.iruby.wshop.controller;
+package work.iruby.wshop.main.controller;
 
 import com.alibaba.fastjson.JSON;
 import com.alibaba.fastjson.TypeReference;

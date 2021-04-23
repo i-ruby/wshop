@@ -3,7 +3,7 @@ package work.iruby.wshop.main.service;
 import com.baomidou.mybatisplus.extension.service.IService;
 import work.iruby.wshop.common.dao.DataMessage;
 import work.iruby.wshop.common.dao.PageMessage;
-import work.iruby.wshop.main.entity.Shop;
+import work.iruby.wshop.common.entity.Shop;
 
 import java.util.List;
 

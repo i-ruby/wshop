@@ -1,4 +1,4 @@
-package work.iruby.wshop.controller;
+package work.iruby.wshop.main.controller;
 
 import org.flywaydb.core.Flyway;
 import org.junit.jupiter.api.BeforeEach;
@@ -17,8 +17,12 @@ abstract class BaseIntegrationTest {
 
     protected String url;
 
+//    @Autowired
+//    public MockRpcOrderService mockRpcOrderService;
+
     @BeforeEach
     void setup() {
+//        MockitoAnnotations.openMocks(mockRpcOrderService);
         url = String.format("http://localhost:%d/api/v1", port);
         Flyway flyway = Flyway.configure().dataSource("jdbc:mysql://121.4.73.4:3307/wshop", "root", "iruby234").load();
         flyway.clean();

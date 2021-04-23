@@ -1,4 +1,6 @@
 spring:
+  aop:
+    proxy-target-class: true
   application:
     name: wshop-main
   devtools:
@@ -17,12 +19,19 @@ mybatis-plus:
     db-config:
       id-type: auto
 
-#wshop:
-#  service:
-#    version: 1.0.0
+redis:
+  host: 121.4.73.4:6379
+
+wshop:
+  service:
+    version: 1.0.0
 
 dubbo:
   registry:
     protocol: zookeeper
-    timeout: 10000
+    timeout: 20000
     address: 121.4.73.4:2181
+#  scan:
+#    base-packages: com.hcsp.wxshop.mock
+#  registry:
+#    address: N/A

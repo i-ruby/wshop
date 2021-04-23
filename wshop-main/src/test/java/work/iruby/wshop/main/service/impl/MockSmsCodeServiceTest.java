@@ -1,4 +1,4 @@
-package work.iruby.wshop.service.impl;
+package work.iruby.wshop.main.service.impl;
 
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
@@ -6,9 +6,7 @@ import org.mockito.InjectMocks;
 import org.mockito.Mock;
 import org.mockito.Mockito;
 import org.mockito.junit.jupiter.MockitoExtension;
-import work.iruby.wshop.main.entity.User;
-import work.iruby.wshop.main.service.impl.MockSmsCodeService;
-import work.iruby.wshop.main.service.impl.UserServiceImpl;
+import work.iruby.wshop.common.entity.User;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertNull;

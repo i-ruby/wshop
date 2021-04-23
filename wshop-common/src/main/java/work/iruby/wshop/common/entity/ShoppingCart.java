@@ -1,10 +1,11 @@
-package work.iruby.wshop.main.entity;
+package work.iruby.wshop.common.entity;
 
 import com.baomidou.mybatisplus.annotation.IdType;
 import com.baomidou.mybatisplus.annotation.TableId;
 import lombok.Data;
 import lombok.EqualsAndHashCode;
 
+import java.io.Serializable;
 import java.time.LocalDateTime;
 
 /**
@@ -17,35 +18,40 @@ import java.time.LocalDateTime;
  */
 @Data
 @EqualsAndHashCode
-public class User {
+public class ShoppingCart implements Serializable {
 
     private static final long serialVersionUID = 1L;
 
     /**
-     * 用户id
+     * 购物车id
      */
     @TableId(value = "id", type = IdType.AUTO)
     private Long id;
 
     /**
-     * 用户名
+     * 用户id
      */
-    private String name;
+    private Long userId;
 
     /**
-     * 用户电话
+     * 商品id
      */
-    private String tel;
+    private Long goodsId;
 
     /**
-     * 用户头像url
+     * 店铺id
      */
-    private String avatarUrl;
+    private Long shopId;
 
     /**
-     * 用户地址
+     * 商品数量
      */
-    private String address;
+    private Integer number;
+
+    /**
+     * 状态 ok正常 deleted 已经删除
+     */
+    private String status;
 
     /**
      * 创建时间
