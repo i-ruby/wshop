@@ -80,7 +80,7 @@ public class IOrderServiceImpl implements IOrderService {
             // 订单中需求的数量 大于 数据库中库存
             totalPrice = totalPrice + goods.getPrice() * map.get(goodsId);
             Boolean success = goodsService.deductStock(goods.getId(), map.get(goodsId));
-            if (success==null || !success) {
+            if (success == null || !success) {
                 throw HttpException.gone("id为" + goods.getId() + "的商品库存不足");
             }
         }

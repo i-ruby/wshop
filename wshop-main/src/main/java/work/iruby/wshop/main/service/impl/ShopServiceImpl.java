@@ -78,7 +78,7 @@ public class ShopServiceImpl extends ServiceImpl<ShopMapper, Shop> implements IS
         if (shop == null || !DataStatus.OK.value().equals(shop.getStatus())) {
             throw HttpException.notFound("店铺未找到");
         }
-        if (UserContext.getCurrentUserId().equals(shop.getOwnerUserId())) {
+        if (!UserContext.getCurrentUserId().equals(shop.getOwnerUserId())) {
             throw HttpException.forbidden("用户尝试操作不属于自己的店铺");
         }
 

@@ -108,7 +108,7 @@ public class GoodsServiceImpl extends ServiceImpl<GoodsMapper, Goods> implements
         if (shop == null) {
             throw HttpException.badRequest("用户的请求中包含错误");
         }
-        if (Objects.equals(shop.getOwnerUserId(), UserContext.getCurrentUserId())) {
+        if (!shop.getOwnerUserId().equals(UserContext.getCurrentUserId())) {
             throw HttpException.forbidden("用户尝试操作非自己店铺的商品");
         }
         if (DataStatus.DELETED.value().equals(shop.getStatus())) {

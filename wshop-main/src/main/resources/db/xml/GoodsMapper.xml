@@ -3,7 +3,7 @@
 <mapper namespace="work.iruby.wshop.main.mapper.GoodsMapper">
     <update id="deductStock">
         update goods
-        set stock = stock - #{number}
+        set stock      = stock - #{number}
           , updated_at = now()
         where id = #{goodsId}
           and status = 'ok'

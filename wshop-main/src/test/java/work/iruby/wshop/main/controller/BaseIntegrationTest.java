@@ -2,14 +2,11 @@ package work.iruby.wshop.main.controller;
 
 import org.flywaydb.core.Flyway;
 import org.junit.jupiter.api.BeforeEach;
-import org.mockito.Mock;
-import org.mockito.MockitoAnnotations;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.boot.web.server.LocalServerPort;
 import work.iruby.wshop.common.dao.TelAndCode;
 import work.iruby.wshop.common.utils.OkHttpClientUtils;
 import work.iruby.wshop.main.WshopApplication;
-import work.iruby.wshop.main.mock.MockRpcOrderService;
 
 import java.io.IOException;
 
@@ -20,12 +17,12 @@ abstract class BaseIntegrationTest {
 
     protected String url;
 
-    @Mock
-    protected MockRpcOrderService mockRpcOrderService;
+//    @Autowired
+//    public MockRpcOrderService mockRpcOrderService;
 
     @BeforeEach
     void setup() {
-        MockitoAnnotations.openMocks(mockRpcOrderService);
+//        MockitoAnnotations.openMocks(mockRpcOrderService);
         url = String.format("http://localhost:%d/api/v1", port);
         Flyway flyway = Flyway.configure().dataSource("jdbc:mysql://121.4.73.4:3307/wshop", "root", "iruby234").load();
         flyway.clean();

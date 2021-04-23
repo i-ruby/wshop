@@ -1,6 +1,5 @@
 package work.iruby.wshop.main.mock;
 
-import org.apache.dubbo.config.annotation.DubboService;
 import org.mockito.Mock;
 import work.iruby.wshop.common.dao.DataMessage;
 import work.iruby.wshop.common.dao.OrderData;
@@ -10,10 +9,15 @@ import work.iruby.wshop.common.rpc.RpcOrderService;
 
 import java.util.List;
 
-@DubboService(version = "${wshop.service.version}")
+//@DubboService(version = "${wshop.service.version}")
 public class MockRpcOrderService implements RpcOrderService {
+
     @Mock
-    RpcOrderService rpcOrderService;
+    private RpcOrderService rpcOrderService;
+
+    public MockRpcOrderService(RpcOrderService rpcOrderService) {
+        this.rpcOrderService = rpcOrderService;
+    }
 
     @Override
     public DataMessage<OrderData> addOrder(OrderData order, Long userId) {
