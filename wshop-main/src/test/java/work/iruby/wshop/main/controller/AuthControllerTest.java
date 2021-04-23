@@ -1,4 +1,4 @@
-package work.iruby.wshop.controller;
+package work.iruby.wshop.main.controller;
 
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.Test;

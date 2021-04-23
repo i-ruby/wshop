@@ -30,7 +30,7 @@ import java.util.List;
 @RequestMapping("/api/v1")
 public class OrderController {
 
-    IOrderServiceImpl orderService;
+    private final IOrderServiceImpl orderService;
 
     @Autowired
     public OrderController(IOrderServiceImpl orderService) {
