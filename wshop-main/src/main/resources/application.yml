@@ -9,7 +9,7 @@ spring:
   datasource:
     username: root
     password: iruby234
-    url: jdbc:mysql://121.4.73.4:3306/wshop
+    url: jdbc:mysql://172.17.16.8:3306/wshop
     driver-class-name: com.mysql.cj.jdbc.Driver
 mybatis-plus:
   mapper-locations: classpath*:/db/xml/**/*.xml
@@ -20,7 +20,7 @@ mybatis-plus:
       id-type: auto
 
 redis:
-  host: 121.4.73.4:6379
+  host: 172.17.16.8:6379
 
 wshop:
   service:
@@ -30,7 +30,7 @@ dubbo:
   registry:
     protocol: zookeeper
     timeout: 20000
-    address: 121.4.73.4:2181
+    address: 172.17.16.8:2181
 
 server:
   port: 8080
