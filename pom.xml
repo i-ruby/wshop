@@ -93,6 +93,20 @@
         </dependency>
 
     </dependencies>
+    <repositories>
+        <repository>
+            <id>alimaven</id>
+            <name>aliyun maven</name>
+            <url>https://maven.aliyun.com/repository/central</url>
+        </repository>
+    </repositories>
+    <pluginRepositories>
+        <pluginRepository>
+            <id>alimaven</id>
+            <name>aliyun maven</name>
+            <url>https://maven.aliyun.com/repository/central</url>
+        </pluginRepository>
+    </pluginRepositories>
     <dependencyManagement>
         <dependencies>
             <dependency>
