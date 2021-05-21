@@ -24,7 +24,7 @@ abstract class BaseIntegrationTest {
     void setup() {
 //        MockitoAnnotations.openMocks(mockRpcOrderService);
         url = String.format("http://localhost:%d/api/v1", port);
-        Flyway flyway = Flyway.configure().dataSource("jdbc:mysql://172.17.16.8:3307/wshop", "root", "iruby234").load();
+        Flyway flyway = Flyway.configure().dataSource("jdbc:mysql://121.4.73.4:3307/wshop", "root", "iruby234").load();
         flyway.clean();
         flyway.migrate();
 

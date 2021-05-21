@@ -31,7 +31,7 @@ public class MysqlGenerator {
         mpg.setGlobalConfig(gc);
         // 数据源配置
         DataSourceConfig dsc = new DataSourceConfig();
-        dsc.setUrl("jdbc:mysql://172.17.16.8:3306/order");
+        dsc.setUrl("jdbc:mysql://121.4.73.4:3306/order");
         // dsc.setSchemaName("public");
         dsc.setDriverName("com.mysql.cj.jdbc.Driver");
         dsc.setUsername("root");

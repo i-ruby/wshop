@@ -7,19 +7,17 @@ import org.apache.shiro.authc.SimpleAuthenticationInfo;
 import org.apache.shiro.authz.AuthorizationInfo;
 import org.apache.shiro.realm.AuthorizingRealm;
 import org.apache.shiro.subject.PrincipalCollection;
-import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Component;
 import work.iruby.wshop.main.service.SmsCodeService;
 
-
-public class MyAuthorizingRealm extends AuthorizingRealm {
+@Component
+public class UserRealm extends AuthorizingRealm {
 
     private final SmsCodeService smsCodeService;
 
-    @Autowired
-    public MyAuthorizingRealm(SmsCodeService smsCodeService) {
+    public UserRealm(SmsCodeService smsCodeService) {
         this.smsCodeService = smsCodeService;
     }
-
 
     @Override
     protected AuthorizationInfo doGetAuthorizationInfo(PrincipalCollection principalCollection) {

@@ -1,0 +1,14 @@
+spring:
+  datasource:
+    username: root
+    password: root
+    url: jdbc:mysql://121.4.73.4:3306/wshop
+    driver-class-name: com.mysql.cj.jdbc.Driver
+redis:
+  host: 121.4.73.4:6379
+dubbo:
+  registry:
+    address: 121.4.73.4:2181
+server:
+  port: 8080
+

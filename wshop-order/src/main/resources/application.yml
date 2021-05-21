@@ -6,8 +6,8 @@ spring:
       enabled: true
   datasource:
     username: root
-    password: iruby234
-    url: jdbc:mysql://172.17.16.8:3306/order
+    password: root
+    url: jdbc:mysql://121.4.73.4:3306/order
     driver-class-name: com.mysql.cj.jdbc.Driver
 mybatis-plus:
   mapper-locations: classpath*:/db/xml/**/*.xml
@@ -30,6 +30,6 @@ dubbo:
   registry:
     protocol: zookeeper
     timeout: 20000
-    address: 172.17.16.8:2181
+    address: 121.4.73.4:2181
 server:
   port: 8082

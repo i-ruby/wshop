@@ -12,6 +12,7 @@ import org.springframework.web.context.request.RequestAttributes;
 import org.springframework.web.context.request.RequestContextHolder;
 
 import javax.servlet.http.HttpServletRequest;
+import java.util.Arrays;
 
 @Aspect
 @Component
@@ -29,11 +30,10 @@ public class LoggerAspect {
     @Around("anyPublicOperation() && controllerOperation()")
     public Object doBasicProfiling(ProceedingJoinPoint pjp) throws Throwable {
         RequestAttributes requestAttributes = RequestContextHolder.getRequestAttributes();
-        //从获取RequestAttributes中获取HttpServletRequest的信息
         assert requestAttributes != null;
         HttpServletRequest request = (HttpServletRequest) requestAttributes.resolveReference(RequestAttributes.REFERENCE_REQUEST);
         assert request != null;
-        logger.info(String.format("%s %s args:%s", request.getMethod(), request.getRequestURI(), JSON.toJSONString(pjp.getArgs())));
+        logger.info(String.format("%s %s args:%s", request.getMethod(), request.getRequestURI(), Arrays.toString(pjp.getArgs())));
         Object retVal = pjp.proceed();
         logger.info("result:" + JSON.toJSONString(retVal));
         return retVal;

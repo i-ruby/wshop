@@ -1,9 +1,9 @@
 package work.iruby.wshop.main.config;
 
 
-import org.apache.shiro.session.mgt.DefaultSessionManager;
 import org.apache.shiro.spring.web.ShiroFilterFactoryBean;
 import org.apache.shiro.web.mgt.DefaultWebSecurityManager;
+import org.apache.shiro.web.session.mgt.DefaultWebSessionManager;
 import org.crazycake.shiro.RedisCacheManager;
 import org.crazycake.shiro.RedisManager;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -12,7 +12,6 @@ import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.web.servlet.config.annotation.InterceptorRegistry;
 import org.springframework.web.servlet.config.annotation.WebMvcConfigurer;
-import work.iruby.wshop.main.service.impl.MockSmsCodeService;
 
 import javax.servlet.Filter;
 import java.util.LinkedHashMap;
@@ -22,25 +21,18 @@ import java.util.Map;
 public class ShiroConfig implements WebMvcConfigurer {
 
     UserInterceptor userInterceptor;
-    MyShiroLoginFilter myShiroLoginFilter;
 
     @Value("redis.host")
     private String redisHost;
 
     @Autowired
-    public ShiroConfig(UserInterceptor userInterceptor, MyShiroLoginFilter myShiroLoginFilter) {
+    public ShiroConfig(UserInterceptor userInterceptor) {
         this.userInterceptor = userInterceptor;
-        this.myShiroLoginFilter = myShiroLoginFilter;
     }
 
     @Override
     public void addInterceptors(InterceptorRegistry registry) {
         registry.addInterceptor(userInterceptor);
-    }
-
-    @Bean
-    public MyAuthorizingRealm myAuthorizingRealm(MockSmsCodeService smsCodeService) {
-        return new MyAuthorizingRealm(smsCodeService);
     }
 
     @Bean
@@ -53,14 +45,13 @@ public class ShiroConfig implements WebMvcConfigurer {
     }
 
     @Bean
-    public DefaultWebSecurityManager securityManager(MyAuthorizingRealm myAuthorizingRealm, RedisCacheManager redisCacheManager) {
+    public DefaultWebSecurityManager securityManager(UserRealm userRealm, RedisCacheManager redisCacheManager) {
         DefaultWebSecurityManager securityManager = new DefaultWebSecurityManager();
         securityManager.setCacheManager(redisCacheManager);
-        securityManager.setSessionManager(new DefaultSessionManager());
-        securityManager.setRealm(myAuthorizingRealm);
+        securityManager.setSessionManager(new DefaultWebSessionManager());
+        securityManager.setRealm(userRealm);
         return securityManager;
     }
-
 
     @Bean
     public ShiroFilterFactoryBean shiroFilterFactoryBean(DefaultWebSecurityManager securityManager) {
@@ -70,9 +61,9 @@ public class ShiroConfig implements WebMvcConfigurer {
         pattern.put("/api/v1/code", "anon");
         pattern.put("/api/v1/login", "anon");
         pattern.put("/api/v1/status", "anon");
-        pattern.put("/**", "user");
+        pattern.put("/**", "authc");
         Map<String, Filter> filterMap = new LinkedHashMap<>();
-        filterMap.put("myShiroLoginFilter", myShiroLoginFilter);
+        filterMap.put("authc", new ShiroLoginFilter());
         shiroFilterFactoryBean.setSecurityManager(securityManager);
         shiroFilterFactoryBean.setFilterChainDefinitionMap(pattern);
         shiroFilterFactoryBean.setFilters(filterMap);

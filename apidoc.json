@@ -1,0 +1,8 @@
+{
+  "name": "wshop",
+  "version": "1.0.0",
+  "description": "小微商城 - 完整的微信电商项目",
+  "title": "小微商城",
+  "url": "http://localhost:8080/api/v1",
+  "sampleUrl": "http://localhost:8080/api/v1"
+}

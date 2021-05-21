@@ -1,4 +1,6 @@
 spring:
+  profiles:
+    active: dev
   aop:
     proxy-target-class: true
   application:
@@ -8,8 +10,8 @@ spring:
       enabled: true
   datasource:
     username: root
-    password: iruby234
-    url: jdbc:mysql://172.17.16.8:3306/wshop
+    password: root
+    url: jdbc:mysql://127.0.0.1:3306/wshop
     driver-class-name: com.mysql.cj.jdbc.Driver
 mybatis-plus:
   mapper-locations: classpath*:/db/xml/**/*.xml
@@ -20,7 +22,7 @@ mybatis-plus:
       id-type: auto
 
 redis:
-  host: 172.17.16.8:6379
+  host: 127.0.0.1:6379
 
 wshop:
   service:
@@ -30,7 +32,7 @@ dubbo:
   registry:
     protocol: zookeeper
     timeout: 20000
-    address: 172.17.16.8:2181
-
+    address: 127.0.0.1:2181
 server:
   port: 8080
+

@@ -4,7 +4,6 @@ import org.apache.shiro.SecurityUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 import org.springframework.web.servlet.HandlerInterceptor;
-import org.springframework.web.servlet.ModelAndView;
 import work.iruby.wshop.common.entity.User;
 import work.iruby.wshop.main.service.IUserService;
 import work.iruby.wshop.main.service.UserContext;
@@ -33,8 +32,7 @@ public class UserInterceptor implements HandlerInterceptor {
     }
 
     @Override
-    public void postHandle(HttpServletRequest request, HttpServletResponse response, Object handler, ModelAndView modelAndView) throws Exception {
+    public void afterCompletion(HttpServletRequest request, HttpServletResponse response, Object handler, Exception ex) throws Exception {
         UserContext.setCurrentUser(null);
     }
-
 }
