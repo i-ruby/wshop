@@ -10,8 +10,10 @@ import work.iruby.wshop.main.service.SmsCodeService;
 import java.util.Map;
 import java.util.concurrent.ConcurrentHashMap;
 
+
 @Service
 public class MockSmsCodeService implements SmsCodeService {
+
     Map<String, String> telAndCode = new ConcurrentHashMap<>();
     IUserService userService;
 
@@ -22,7 +24,6 @@ public class MockSmsCodeService implements SmsCodeService {
 
     @Override
     public String sendSmsCode(String tel) {
-
         User user = userService.getOne(new QueryWrapper<User>().eq("tel", tel));
         if (user == null) {
             user = new User();
@@ -38,4 +39,5 @@ public class MockSmsCodeService implements SmsCodeService {
     public String getCorrectSmsCode(String tel) {
         return telAndCode.get(tel);
     }
+
 }

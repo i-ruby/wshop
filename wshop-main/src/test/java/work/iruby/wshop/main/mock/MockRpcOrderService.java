@@ -35,6 +35,11 @@ public class MockRpcOrderService implements RpcOrderService {
     }
 
     @Override
+    public DataMessage<OrderData> getOrderByOrderId(Long orderId, Long userId) {
+        return rpcOrderService.getOrderByOrderId(orderId, userId);
+    }
+
+    @Override
     public PageMessage<List<OrderData>> getCurrentUserPageOrders(Integer pageNum, Integer pageSize, String status, Long userId) {
         return rpcOrderService.getCurrentUserPageOrders(pageNum, pageSize, status, userId);
     }

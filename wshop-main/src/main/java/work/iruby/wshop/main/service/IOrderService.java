@@ -16,4 +16,6 @@ public interface IOrderService {
     PageMessage<List<OrderData>> getCurrentUserPageOrders(Integer pageNum, Integer pageSize, String status);
 
     Long deductStockAndCalTotalPrice(OrderData order);
+
+    Object getOrderByOrderId(Long orderId);
 }

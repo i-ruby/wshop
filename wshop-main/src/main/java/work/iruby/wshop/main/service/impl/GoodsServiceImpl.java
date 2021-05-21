@@ -80,7 +80,6 @@ public class GoodsServiceImpl extends ServiceImpl<GoodsMapper, Goods> implements
         } else {
             queryWrapper = new QueryWrapper<Goods>().eq("shop_id", shopId);
         }
-
         page(goodsPage, queryWrapper);
         return PageMessage.of(pageNum, pageSize, (int) goodsPage.getPages(), goodsPage.getRecords());
     }

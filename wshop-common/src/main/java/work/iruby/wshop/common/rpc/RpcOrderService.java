@@ -23,5 +23,8 @@ public interface RpcOrderService {
 
     DataMessage<OrderData> updateOrderByOrderId(Long orderId, OrderExpressAndStatus orderExpressAndStatus, Long userId);
 
+    DataMessage<OrderData> getOrderByOrderId(Long orderId, Long userId);
+
     PageMessage<List<OrderData>> getCurrentUserPageOrders(Integer pageNum, Integer pageSize, String status, Long userId);
+
 }

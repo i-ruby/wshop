@@ -39,6 +39,7 @@ public class IOrderServiceImpl implements IOrderService {
         this.shopService = shopService;
     }
 
+    @Override
     public Object addOrder(OrderData order) {
         order.setAddress(UserContext.getCurrentUser().getAddress());
         DataMessage<OrderData> message = rpcOrderService.addOrder(order, UserContext.getCurrentUserId());
@@ -46,6 +47,7 @@ public class IOrderServiceImpl implements IOrderService {
         return message;
     }
 
+    @Override
     public Object deleteOrderByOrderId(Long orderId) {
         Long userId = UserContext.getCurrentUser().getId();
         DataMessage<OrderData> message = rpcOrderService.deleteOrderByOrderId(orderId, userId);
@@ -53,9 +55,18 @@ public class IOrderServiceImpl implements IOrderService {
         return message;
     }
 
+    @Override
     public Object updateOrderByOrderId(Long orderId, OrderExpressAndStatus orderExpressAndStatus) {
         Long userId = UserContext.getCurrentUser().getId();
         DataMessage<OrderData> message = rpcOrderService.updateOrderByOrderId(orderId, orderExpressAndStatus, userId);
+        dataFill(message.getData());
+        return message;
+    }
+
+    @Override
+    public Object getOrderByOrderId(Long orderId) {
+        Long userId = UserContext.getCurrentUser().getId();
+        DataMessage<OrderData> message = rpcOrderService.getOrderByOrderId(orderId, userId);
         dataFill(message.getData());
         return message;
     }

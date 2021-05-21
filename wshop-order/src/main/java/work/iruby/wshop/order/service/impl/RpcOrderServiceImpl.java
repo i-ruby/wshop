@@ -12,10 +12,11 @@ import work.iruby.wshop.common.entity.OrderGoods;
 import work.iruby.wshop.common.entity.OrderTable;
 import work.iruby.wshop.common.enums.DataStatus;
 import work.iruby.wshop.common.enums.OrderStatus;
+import work.iruby.wshop.common.exception.HttpException;
+import work.iruby.wshop.common.rpc.RpcOrderService;
 import work.iruby.wshop.order.mapper.OrderDataMapper;
 import work.iruby.wshop.order.service.IOrderGoodsService;
 import work.iruby.wshop.order.service.IOrderTableService;
-import work.iruby.wshop.common.rpc.RpcOrderService;
 
 import java.time.LocalDateTime;
 import java.util.List;
@@ -60,9 +61,6 @@ public class RpcOrderServiceImpl implements RpcOrderService {
     @Override
     public DataMessage<OrderData> deleteOrderByOrderId(Long orderId, Long userId) {
         OrderTable dbOrder = checkCurrentUserPermission(orderId, userId);
-        if (dbOrder == null) {
-            return DataMessage.of(null);
-        }
         dbOrder.setStatus(DataStatus.DELETED.value());
         orderTableService.updateById(dbOrder);
         List<OrderData> pageOrderData = orderDataMapper.getPageOrderData(userId, orderId, null, null, null);
@@ -87,6 +85,13 @@ public class RpcOrderServiceImpl implements RpcOrderService {
     }
 
     @Override
+    public DataMessage<OrderData> getOrderByOrderId(Long orderId, Long userId) {
+        checkCurrentUserPermission(orderId, userId);
+        List<OrderData> pageOrderData = orderDataMapper.getPageOrderData(userId, orderId, null, null, null);
+        return DataMessage.of(pageOrderData.get(0));
+    }
+
+    @Override
     public PageMessage<List<OrderData>> getCurrentUserPageOrders(Integer pageNum, Integer pageSize, String status, Long userId) {
         int offset = (pageNum - 1) * pageSize;
         int totalNum = orderDataMapper.countPageOrderData(userId, status);
@@ -97,13 +102,13 @@ public class RpcOrderServiceImpl implements RpcOrderService {
     private OrderTable checkCurrentUserPermission(Long orderId, Long userId) {
         OrderTable dbOrder = orderTableService.getById(orderId);
         if (dbOrder == null) {
-            throw new RuntimeException("订单未找到");
+            throw HttpException.notFound("订单未找到");
         }
         if (DataStatus.DELETED.value().equals(dbOrder.getStatus())) {
-            return null;
+            throw HttpException.notFound("订单未找到");
         }
         if (!dbOrder.getUserId().equals(userId)) {
-            throw new RuntimeException("无权访问");
+            throw HttpException.forbidden("无权访问");
         }
         return dbOrder;
     }
