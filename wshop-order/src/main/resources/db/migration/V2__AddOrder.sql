@@ -1,4 +1,4 @@
-use `order` ;
+use `order`;
 
 INSERT INTO order_table (id, user_id, shop_id, total_price, address, express_company, express_id, status)
 VALUES (1, 1, 1, 1400, '火星', '顺丰', '运单1234567', 'delivered');

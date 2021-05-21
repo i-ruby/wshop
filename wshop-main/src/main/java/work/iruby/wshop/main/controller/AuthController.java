@@ -48,6 +48,7 @@ public class AuthController {
      */
     /**
      * 根据电话号码获得验证码
+     *
      * @param telAndCode 只取电话号码作为参数
      * @return String  验证码
      */
@@ -87,6 +88,7 @@ public class AuthController {
      */
     /**
      * 根据电话号码和验证码登录
+     *
      * @param telAndCode {"tel": "13812345678","code": "000000"}
      */
     @PostMapping("/login")
@@ -153,6 +155,7 @@ public class AuthController {
      */
     /**
      * 获得登录状态
+     *
      * @return 登录状态
      */
     @GetMapping("/status")

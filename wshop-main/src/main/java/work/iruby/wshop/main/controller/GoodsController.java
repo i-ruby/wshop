@@ -1,7 +1,6 @@
 package work.iruby.wshop.main.controller;
 
 
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -85,6 +84,7 @@ public class GoodsController {
      */
     /**
      * 创建商品
+     *
      * @param goods 商品
      * @return 商品
      */
@@ -135,7 +135,8 @@ public class GoodsController {
      */
     /**
      * 根据商品id删除商品
-     * @param id 商品id
+     *
+     * @param id       商品id
      * @param response response
      * @return 商品
      */
@@ -196,7 +197,8 @@ public class GoodsController {
      */
     /**
      * 根据商品id更新商品信息
-     * @param id 商品id
+     *
+     * @param id    商品id
      * @param goods 商品
      * @return 商品
      */
@@ -256,9 +258,10 @@ public class GoodsController {
      */
     /**
      * 分页获得所有商品
-     * @param pageNum 页数，从1开始
+     *
+     * @param pageNum  页数，从1开始
      * @param pageSize 每页显示的数量
-     * @param shopId 店铺ID，若传递，则只显示该店铺中的商品
+     * @param shopId   店铺ID，若传递，则只显示该店铺中的商品
      * @return 商品列表
      */
     @GetMapping("/goods")
@@ -305,6 +308,7 @@ public class GoodsController {
      */
     /**
      * 获取指定id的商品
+     *
      * @param id 商品的id
      * @return 商品
      */

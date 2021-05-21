@@ -97,7 +97,8 @@ public class ShoppingCartController {
      */
     /**
      * 分页获得购物车信息
-     * @param pageNum 页数，从1开始
+     *
+     * @param pageNum  页数，从1开始
      * @param pageSize 每页显示的数量
      * @return 分页购物车信息
      */
@@ -174,6 +175,7 @@ public class ShoppingCartController {
      */
     /**
      * 新增购物车信息
+     *
      * @param shoppingCartData 购物车信息
      * @return 购物车信息
      */
@@ -237,6 +239,7 @@ public class ShoppingCartController {
      */
     /**
      * 根据商品id删除购物车中的商品
+     *
      * @param GoodsId 商品id
      * @return 购物车信息
      */
