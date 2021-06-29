@@ -78,7 +78,8 @@ public class ShopController {
     /**
      * 创建店铺
      *
-     * @param shop 店铺信息
+     * @param shop     店铺信息
+     * @param response response
      * @return 店铺信息
      */
     @PostMapping("/shop")
@@ -122,9 +123,10 @@ public class ShopController {
      *     }
      */
     /**
-     * 巨根店铺id删除店铺
+     * 根据店铺id删除店铺
      *
-     * @param shopId 店铺id
+     * @param shopId   店铺id
+     * @param response response
      * @return 店铺信息
      */
     @DeleteMapping("/shop/{id}")

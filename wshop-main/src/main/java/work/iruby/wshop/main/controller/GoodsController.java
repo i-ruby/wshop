@@ -85,7 +85,8 @@ public class GoodsController {
     /**
      * 创建商品
      *
-     * @param goods 商品
+     * @param goods    商品
+     * @param response response
      * @return 商品
      */
     @PostMapping("/goods")
