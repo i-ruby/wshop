@@ -11,7 +11,7 @@
   - ZooKeeper: 作为Dubbo的注册中心
   - NGINX: 可选，如果希望实现多实例部署和负载均衡
   
-- 部署步骤(以下基于Docker环境)
+- 部署步骤(以下基于Docker环境, java8+)
   - `docker run -d --name redis -p 6379:6379 redis`
   - `docker run -d --name zookeeper -p 2181:2181 zookeeper`
   - `docker volume create mysql-wshop` #只有下一步进行失败时此条才是必需的
